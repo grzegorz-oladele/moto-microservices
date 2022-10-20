@@ -1,3 +1,6 @@
 eureka-service/target
+eureka-service/.idea
 
 gateway/target
+
+docker
