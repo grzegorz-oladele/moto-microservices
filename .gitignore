@@ -1,6 +1,14 @@
 eureka-service/target
 eureka-service/.idea
 
+#GATEWAY SERVICE
 gateway/target
+gateway/gateway.iml
+
+#MOTORCYCLE-SERVICE
+motorcycle-service/HELP.md
+motorcycle-service/motorcycle-service.iml
+motorcycle-service/target
+motorcycle-service/src/main/resources/application-dev.properties
 
 docker
