@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Builder
-@Table(name = "motorcycle_classes")
+@Table(name = "motorcycleclasses")
 class MotorcycleClassEntity {
 
     @Id

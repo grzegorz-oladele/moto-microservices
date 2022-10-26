@@ -1,4 +1,4 @@
-package pl.grzegorz.motorcycleservice.motorcycle_class;
+package pl.grzegorz.motorcycleservice.motorcycle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -9,41 +9,42 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.grzegorz.motorcycleservice.BaseIntegrationTest;
+import pl.grzegorz.motorcycleservice.motorcycle_class.query.MotorcycleClassSimpleEntity;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static pl.grzegorz.motorcycleservice.motorcycle_class.MotorcycleClassTestInitValue.getUnitTestingMotorcycleClassEntity;
+import static pl.grzegorz.motorcycleservice.motorcycle.UnitTestMotorcycleInitValue.getMotorcycleEntity;
 
-class MotorcycleClassControllerTest extends BaseIntegrationTest {
+class MotorcycleControllerTest extends BaseIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private MotorcycleClassRepository motorcycleClassRepository;
+    private MotorcycleRepository motorcycleRepository;
+
+    private static final String URL = "/motorcycles";
 
     private static ObjectMapper objectMapper;
-    private static MotorcycleClassEntity motorcycleClass;
-
-    private final String URL = "/motorcycle-classes";
+    private static MotorcycleEntity motorcycle;
 
     @BeforeAll
-    static void setup() {
+    static void setUp() {
         objectMapper = new ObjectMapper();
-        motorcycleClass = getUnitTestingMotorcycleClassEntity();
+        motorcycle = getMotorcycleEntity();
     }
 
     @AfterEach
     void tearDown() {
-        motorcycleClassRepository.deleteAll();
+        motorcycleRepository.deleteAll();
     }
 
     @Test
-    void firstTest() throws Exception {
+    void secondTest() throws Exception {
         long id = 1;
-        motorcycleClassRepository.save(motorcycleClass);
+        motorcycleRepository.save(motorcycle);
 
         String result = mockMvc.perform(get(URL + "/" + id))
                 .andDo(print())
@@ -52,7 +53,7 @@ class MotorcycleClassControllerTest extends BaseIntegrationTest {
                 .getResponse()
                 .getContentAsString();
 
-        MotorcycleClassEntityIntegrationTest testResult = objectMapper.readValue(result, MotorcycleClassEntityIntegrationTest.class);
+        MotorcycleEntityIntegrationTest testResult = objectMapper.readValue(result, MotorcycleEntityIntegrationTest.class);
 
         assertAll(
                 () -> assertNotNull(testResult)
@@ -61,12 +62,17 @@ class MotorcycleClassControllerTest extends BaseIntegrationTest {
 
     @Getter
     @Setter
-    private static class MotorcycleClassEntityIntegrationTest {
+    private static class MotorcycleEntityIntegrationTest {
 
         private long id;
-        private String name;
-        private String description;
-    }
+        private String brand;
+        private String model;
+        private int capacity;
+        private int horsePower;
+        private int vintage;
+        private MotorcycleClassSimpleEntity motorcycleClass;
+        private String bikerId;
 
+    }
 
 }
