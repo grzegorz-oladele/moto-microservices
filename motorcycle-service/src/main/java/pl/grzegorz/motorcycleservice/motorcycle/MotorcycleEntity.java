@@ -1,21 +1,32 @@
 package pl.grzegorz.motorcycleservice.motorcycle;
 
 import lombok.*;
-import pl.grzegorz.motorcycleservice.motorcycle_class.query.MotorcycleClassSimpleEntity;
+import org.hibernate.annotations.GenericGenerator;
+import pl.grzegorz.motorcycleservice.bike_class.query.BikeClassSimpleEntity;
+import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-//@Table(name = "motorcycles")
+@Table(name = "motorcycles")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 class MotorcycleEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "sequence_generator")
+    @GenericGenerator(
+            name = "sequence_generator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "motorcycle_class_sequence"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_value", value = "1")
+            }
+    )
     private Long id;
     private String brand;
     private String model;
@@ -24,7 +35,8 @@ class MotorcycleEntity {
     private int vintage;
     @ManyToOne
     @JoinColumn(name = "class_id")
-    private MotorcycleClassSimpleEntity motorcycleClass;
+    private BikeClassSimpleEntity motorcycleClass;
+//    private BikeClassSimpleEntity motorcycleClass;
     private String bikerId;
 
     static MotorcycleEntity toEntity(MotorcycleDto motorcycleDto) {

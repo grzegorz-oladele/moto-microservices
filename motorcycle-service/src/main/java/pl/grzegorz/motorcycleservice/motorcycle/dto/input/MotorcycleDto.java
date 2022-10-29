@@ -1,4 +1,4 @@
-package pl.grzegorz.motorcycleservice.motorcycle;
+package pl.grzegorz.motorcycleservice.motorcycle.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

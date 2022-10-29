@@ -3,6 +3,8 @@ package pl.grzegorz.motorcycleservice.motorcycle;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
+import pl.grzegorz.motorcycleservice.motorcycle.dto.output.MotorcycleOutputDto;
 
 import java.net.URI;
 
@@ -18,9 +20,9 @@ class MotorcycleController {
         return ResponseEntity.ok(motorcycleFacade.getMotorcycleById(motorcycleId));
     }
 
-    @PostMapping
-    ResponseEntity<?> addNewMotorcycle(@RequestBody MotorcycleDto motorcycleDto) {
-        motorcycleFacade.AddMotorcycle(motorcycleDto);
+    @PostMapping("/{bikeClassId}/bike-classes")
+    ResponseEntity<?> addNewMotorcycle(@RequestBody MotorcycleDto motorcycleDto, @PathVariable long bikeClassId) {
+        motorcycleFacade.AddMotorcycle(motorcycleDto, bikeClassId);
         return ResponseEntity.created(URI.create("foo")).build();
     }
 }

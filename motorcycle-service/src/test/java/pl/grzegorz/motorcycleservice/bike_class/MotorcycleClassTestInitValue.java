@@ -1,9 +1,9 @@
-package pl.grzegorz.motorcycleservice.motorcycle_class;
+package pl.grzegorz.motorcycleservice.bike_class;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import pl.grzegorz.motorcycleservice.motorcycle_class.dto.input.MotorcycleClassDto;
-import pl.grzegorz.motorcycleservice.motorcycle_class.dto.output.MotorcycleClassOutputDto;
+import pl.grzegorz.motorcycleservice.bike_class.dto.input.BikeClassDto;
+import pl.grzegorz.motorcycleservice.bike_class.dto.output.BikeClassOutputDto;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import static java.util.Arrays.asList;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class MotorcycleClassTestInitValue {
 
-    static List<MotorcycleClassOutputDto> getUnitTestingListOfMotorcycleClassOutputDto() {
-        MotorcycleClassOutputDto firstMotorcycleClassOutputDto = new MotorcycleClassOutputDto() {
+    static List<BikeClassOutputDto> getUnitTestingListOfMotorcycleClassOutputDto() {
+        BikeClassOutputDto firstBikeClassOutputDto = new BikeClassOutputDto() {
             @Override
             public Long getId() {
                 return 1L;
@@ -30,7 +30,7 @@ class MotorcycleClassTestInitValue {
             }
         };
 
-        MotorcycleClassOutputDto secondMotorcycleClassOutputDto = new MotorcycleClassOutputDto() {
+        BikeClassOutputDto secondBikeClassOutputDto = new BikeClassOutputDto() {
             @Override
             public Long getId() {
                 return 2L;
@@ -46,18 +46,25 @@ class MotorcycleClassTestInitValue {
                 return "City motorcycles with sporty flair";
             }
         };
-        return asList(firstMotorcycleClassOutputDto, secondMotorcycleClassOutputDto);
+        return asList(firstBikeClassOutputDto, secondBikeClassOutputDto);
     }
 
-    static MotorcycleClassEntity getUnitTestingMotorcycleClassEntity() {
-        return MotorcycleClassEntity.builder()
+    static BikeClassEntity getFirstMotorcycleClassEntity() {
+        return BikeClassEntity.builder()
                 .name("Power Cruiser")
                 .description("Powerful and heavy motorcycle")
                 .build();
     }
 
-    static MotorcycleClassDto getUnitTestingMotorcycleClassDto() {
-        return MotorcycleClassDto.builder()
+    static BikeClassEntity getSecondMotorcycleClassEntity() {
+        return BikeClassEntity.builder()
+                .name("Supersport")
+                .description("Optimized for speed, accelerating and braking")
+                .build();
+    }
+
+    static BikeClassDto getUnitTestingMotorcycleClassDto() {
+        return BikeClassDto.builder()
                 .name("Cafe Racer")
                 .description("Small-capacity motorcycles for getting around town fast")
                 .build();

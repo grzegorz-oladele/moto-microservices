@@ -1,18 +1,17 @@
-package pl.grzegorz.motorcycleservice.motorcycle_class.query;
+package pl.grzegorz.motorcycleservice.bike_class.query;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 @Table(name = "motorcycle_classes")
-public class MotorcycleClassSimpleEntity {
+public class BikeClassSimpleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

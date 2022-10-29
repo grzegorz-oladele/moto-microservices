@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.grzegorz.motorcycleservice.BaseIntegrationTest;
-import pl.grzegorz.motorcycleservice.motorcycle_class.query.MotorcycleClassSimpleEntity;
+import pl.grzegorz.motorcycleservice.bike_class.query.BikeClassSimpleEntity;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,20 +32,23 @@ class MotorcycleControllerTest extends BaseIntegrationTest {
     private static MotorcycleEntity motorcycle;
 
     @BeforeAll
-    static void setUp() {
+    static void start() {
         objectMapper = new ObjectMapper();
         motorcycle = getMotorcycleEntity();
     }
+    @BeforeEach
+    void setupDb() {
+        motorcycleRepository.save(motorcycle);
+    }
 
     @AfterEach
-    void tearDown() {
+    void clearDb() {
         motorcycleRepository.deleteAll();
     }
 
     @Test
     void secondTest() throws Exception {
-        long id = 1;
-        motorcycleRepository.save(motorcycle);
+        long id = motorcycle.getId();
 
         String result = mockMvc.perform(get(URL + "/" + id))
                 .andDo(print())
@@ -70,7 +74,7 @@ class MotorcycleControllerTest extends BaseIntegrationTest {
         private int capacity;
         private int horsePower;
         private int vintage;
-        private MotorcycleClassSimpleEntity motorcycleClass;
+        private BikeClassSimpleEntity motorcycleClass;
         private String bikerId;
 
     }

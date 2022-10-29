@@ -1,4 +1,4 @@
-package pl.grzegorz.motorcycleservice.motorcycle_class;
+package pl.grzegorz.motorcycleservice.bike_class;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,8 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.grzegorz.motorcycleservice.motorcycle_class.dto.input.MotorcycleClassDto;
-import pl.grzegorz.motorcycleservice.motorcycle_class.dto.output.MotorcycleClassOutputDto;
+import pl.grzegorz.motorcycleservice.bike_class.dto.input.BikeClassDto;
+import pl.grzegorz.motorcycleservice.bike_class.dto.output.BikeClassOutputDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,37 +16,37 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static pl.grzegorz.motorcycleservice.motorcycle_class.MotorcycleClassTestInitValue.*;
+import static pl.grzegorz.motorcycleservice.bike_class.MotorcycleClassTestInitValue.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class MotorcycleClassFacadeImplTest {
+class BikeClassFacadeImplTest {
 
     @InjectMocks
-    private MotorcycleClassFacadeImpl motorcycleClassFacade;
+    private BikeClassFacadeImpl motorcycleClassFacade;
     @Mock
-    private MotorcycleClassRepository motorcycleClassRepository;
+    private BikeClassRepository bikeClassRepository;
     @Mock
-    private MotorcycleClassQueryRepository motorcycleClassQueryRepository;
+    private BikeClassQueryRepository bikeClassQueryRepository;
 
     private final long motorcycleClassId = 2;
 
-    private MotorcycleClassDto motorcycleClassDto;
-    private MotorcycleClassEntity motorcycleClass;
+    private BikeClassDto bikeClassDto;
+    private BikeClassEntity motorcycleClass;
 
     @BeforeEach
     void setup() {
-        motorcycleClassDto = getUnitTestingMotorcycleClassDto();
-        motorcycleClass = getUnitTestingMotorcycleClassEntity();
+        bikeClassDto = getUnitTestingMotorcycleClassDto();
+        motorcycleClass = getFirstMotorcycleClassEntity();
     }
 
     @Test
     void shouldReturnListOfMotorcycleClassOutputDto() {
 //        given
-        List<MotorcycleClassOutputDto> classesOfMotorcycles = getUnitTestingListOfMotorcycleClassOutputDto();
-        when(motorcycleClassQueryRepository.findAllBy()).thenReturn(classesOfMotorcycles);
+        List<BikeClassOutputDto> classesOfMotorcycles = getUnitTestingListOfMotorcycleClassOutputDto();
+        when(bikeClassQueryRepository.findAllBy()).thenReturn(classesOfMotorcycles);
 //        when
-        List<MotorcycleClassOutputDto> motorcycleClassList = motorcycleClassFacade.getMotorcycleClassList();
+        List<BikeClassOutputDto> motorcycleClassList = motorcycleClassFacade.getMotorcycleClassList();
 //        then
         assertAll(
                 () -> assertNotNull(motorcycleClassList),
@@ -83,28 +83,28 @@ class MotorcycleClassFacadeImplTest {
     void shouldCallingSaveMethodFromMotorcycleClassRepositoryInterface() {
 //        given
 //        when
-        motorcycleClassFacade.addMotorcyclesClass(motorcycleClassDto);
+        motorcycleClassFacade.addMotorcyclesClass(bikeClassDto);
 //        then
-        verify(motorcycleClassRepository).save(any(MotorcycleClassEntity.class));
+        verify(bikeClassRepository).save(any(BikeClassEntity.class));
     }
 
     @Test
     void shouldCallingSaveMethodFromMotorcycleClassRepository() {
 //        given
-        when(motorcycleClassRepository.findById(motorcycleClassId)).thenReturn(Optional.of(motorcycleClass));
+        when(bikeClassRepository.findById(motorcycleClassId)).thenReturn(Optional.of(motorcycleClass));
 //        when
-        motorcycleClassFacade.editMotorcycleClass(motorcycleClassId, motorcycleClassDto);
+        motorcycleClassFacade.editMotorcycleClass(motorcycleClassId, bikeClassDto);
 //        then
-        verify(motorcycleClassRepository).save(any(MotorcycleClassEntity.class));
+        verify(bikeClassRepository).save(any(BikeClassEntity.class));
     }
 
     @Test
     void shouldCallingDeleteMethodFromMotorcycleClassRepository() {
 //        given
-        when(motorcycleClassRepository.findById(motorcycleClassId)).thenReturn(Optional.of(motorcycleClass));
+        when(bikeClassRepository.findById(motorcycleClassId)).thenReturn(Optional.of(motorcycleClass));
 //        when
         motorcycleClassFacade.removeMotorcycleClassById(motorcycleClassId);
 //        then
-        verify(motorcycleClassRepository).delete(any(MotorcycleClassEntity.class));
+        verify(bikeClassRepository).delete(any(BikeClassEntity.class));
     }
 }
