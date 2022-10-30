@@ -1,0 +1,61 @@
+version: '3.8'
+services:
+#  EUREKA-SERVER
+  eureka-server:
+    container_name: eureka
+    image: grzesiekoladele/eureka-service:v1
+    ports:
+      - '8761:8761'
+    restart: always
+    networks:
+      - moto-microservices
+#  GATEWAY
+  gateway:
+    container_name: api-gateway
+    image: grzesiekoladele/moto-api-gateway
+    ports:
+      - '8765:8765'
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+    networks:
+      - moto-microservices
+    depends_on:
+      - eureka-server
+    restart: always
+#  MOTORCYCLE DATABASE
+  motorcycle-database:
+    container_name: motorcycle-database
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: motorcycle_db
+      POSTGRES_PORT: 5432
+    restart: always
+    depends_on:
+      - gateway
+    networks:
+      - moto-microservices
+#  MOTORCYCLE SERVICE
+  motorcycle-service:
+    image: grzesiekoladele/motorcycle-service:v1
+    container_name: motorcycle-service
+    ports:
+      - '8000:8000'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://motorcycle-database:5432/motorcycle_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    restart: always
+    depends_on:
+      - motorcycle-database
+    networks:
+      - moto-microservices
+
+
+volumes:
+  db-moto-microservices:
+networks:
+  moto-microservices:
+    driver: bridge
