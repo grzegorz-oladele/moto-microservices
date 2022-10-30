@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.grzegorz.motorcycleservice.bike_class.dto.input.BikeClassDto;
 import pl.grzegorz.motorcycleservice.bike_class.dto.output.BikeClassOutputDto;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -28,13 +29,14 @@ class BikeClassController {
     }
 
     @PostMapping
-    ResponseEntity<?> addNewMotorcycleClass(@RequestBody BikeClassDto bikeClassDto) {
+    ResponseEntity<?> addNewMotorcycleClass(@RequestBody @Valid BikeClassDto bikeClassDto) {
         bikeClassFacade.addMotorcyclesClass(bikeClassDto);
         return ResponseEntity.created(URI.create("foo")).build();
     }
 
     @PatchMapping("/{motorcycleClassId}")
-    ResponseEntity<?> editMotorcycleClass(@PathVariable long motorcycleClassId, @RequestBody BikeClassDto bikeClassDto) {
+    ResponseEntity<?> editMotorcycleClass(@PathVariable long motorcycleClassId,
+                                          @RequestBody @Valid BikeClassDto bikeClassDto) {
         bikeClassFacade.editMotorcycleClass(motorcycleClassId, bikeClassDto);
         return ResponseEntity.noContent().build();
     }

@@ -41,6 +41,7 @@ class MotorcycleFacadeImpl implements MotorcycleFacade {
 
     @Override
     public void addMotorcycle(MotorcycleDto motorcycleDto, long bikeClassId) {
+        validatorFacade.checkVintageValueAndThrowExceptionIfIsWrong(motorcycleDto.getVintage());
         MotorcycleEntity motorcycle = toEntity(motorcycleDto);
         BikeClassSimpleEntity bikeClass = bikeClassFacade.getBikeClassSimpleEntity(bikeClassId);
         motorcycle.setMotorcycleClass(bikeClass);
@@ -49,6 +50,7 @@ class MotorcycleFacadeImpl implements MotorcycleFacade {
 
     @Override
     public void editMotorcycle(long motorcycleId, MotorcycleDto motorcycleDto) {
+        validatorFacade.checkVintageValueAndThrowExceptionIfIsWrong(motorcycleDto.getVintage());
         MotorcycleEntity motorcycle = getMotorcycleEntityById(motorcycleId);
         MotorcycleEntity updatedMotorcycle = toEntity(motorcycleDto);
         updatedMotorcycle.setId(motorcycle.getId());
