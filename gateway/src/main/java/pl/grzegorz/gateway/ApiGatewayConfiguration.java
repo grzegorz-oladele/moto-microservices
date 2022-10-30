@@ -6,14 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-class ApiGatewayConfiguration {
+public class ApiGatewayConfiguration {
 
     @Bean
-    RouteLocator gatewayRouter(RouteLocatorBuilder routeLocatorBuilder) {
+    public RouteLocator gatewayRouter(RouteLocatorBuilder routeLocatorBuilder) {
         return routeLocatorBuilder.routes()
                 .route(p -> p.path("/api/motorcycles/**")
-                        .uri("lb://motorcycle-service")
-                )
+                        .uri("lb://motorcycle-service"))
+                .route(p -> p.path("/api/motorcycle-classes/**")
+                        .uri("lb://motorcycle-service"))
                 .build();
     }
 }

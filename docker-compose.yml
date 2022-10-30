@@ -14,7 +14,7 @@ services:
     container_name: api-gateway
     image: grzesiekoladele/moto-api-gateway
     ports:
-      - '8765:8765'
+      - '9000:9000'
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
     networks:
@@ -43,6 +43,7 @@ services:
     ports:
       - '8000:8000'
     environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
       SPRING_DATASOURCE_URL: jdbc:postgresql://motorcycle-database:5432/motorcycle_db
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: password
