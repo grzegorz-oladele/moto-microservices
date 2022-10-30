@@ -6,17 +6,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 import pl.grzegorz.motorcycleservice.bike_class.dto.input.BikeClassDto;
 import pl.grzegorz.motorcycleservice.bike_class.dto.output.BikeClassOutputDto;
+import pl.grzegorz.motorcycleservice.tools.validator.ValidatorFacade;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static pl.grzegorz.motorcycleservice.bike_class.MotorcycleClassTestInitValue.*;
+import static org.mockito.Mockito.*;
+import static pl.grzegorz.motorcycleservice.bike_class.BikeClassTestInitValue.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +29,8 @@ class BikeClassFacadeImplTest {
     private BikeClassRepository bikeClassRepository;
     @Mock
     private BikeClassQueryRepository bikeClassQueryRepository;
+    @Mock
+    private ValidatorFacade validatorFacade;
 
     private final long motorcycleClassId = 2;
 
@@ -43,10 +46,13 @@ class BikeClassFacadeImplTest {
     @Test
     void shouldReturnListOfMotorcycleClassOutputDto() {
 //        given
-        List<BikeClassOutputDto> classesOfMotorcycles = getUnitTestingListOfMotorcycleClassOutputDto();
-        when(bikeClassQueryRepository.findAllBy()).thenReturn(classesOfMotorcycles);
+        int page = 1;
+        int size = 2;
+        List<BikeClassOutputDto> classesOfMotorcycles = getUnitTestingListOfBikeClassOutputDto();
+        when(bikeClassQueryRepository.findAllBy(PageRequest.of(0, size))).thenReturn(classesOfMotorcycles);
+        doNothing().when(validatorFacade).checkPageAndSizeValueAndThrowExceptionIfIsWrong(page, size);
 //        when
-        List<BikeClassOutputDto> motorcycleClassList = motorcycleClassFacade.getMotorcycleClassList();
+        List<BikeClassOutputDto> motorcycleClassList = motorcycleClassFacade.getMotorcycleClassList(page, size);
 //        then
         assertAll(
                 () -> assertNotNull(motorcycleClassList),

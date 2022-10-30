@@ -7,6 +7,7 @@ import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.output.MotorcycleOutputDto;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/motorcycles")
@@ -20,9 +21,26 @@ class MotorcycleController {
         return ResponseEntity.ok(motorcycleFacade.getMotorcycleById(motorcycleId));
     }
 
+    @GetMapping
+    ResponseEntity<List<MotorcycleOutputDto>> getListOfMotorcycles(@RequestParam int page, @RequestParam int size) {
+        return ResponseEntity.ok(motorcycleFacade.getListOfMotorcycles(page, size));
+    }
+
     @PostMapping("/{bikeClassId}/bike-classes")
-    ResponseEntity<?> addNewMotorcycle(@RequestBody MotorcycleDto motorcycleDto, @PathVariable long bikeClassId) {
-        motorcycleFacade.AddMotorcycle(motorcycleDto, bikeClassId);
+    ResponseEntity<?> addMotorcycle(@RequestBody MotorcycleDto motorcycleDto, @PathVariable long bikeClassId) {
+        motorcycleFacade.addMotorcycle(motorcycleDto, bikeClassId);
         return ResponseEntity.created(URI.create("foo")).build();
+    }
+
+    @PatchMapping("/{motorcycleId}")
+    ResponseEntity<?> editMotorcycle(@RequestBody MotorcycleDto motorcycleDto, @PathVariable long motorcycleId) {
+        motorcycleFacade.editMotorcycle(motorcycleId, motorcycleDto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{motorcycleId}")
+    ResponseEntity<?> removeMotorcycle(@PathVariable long motorcycleId) {
+        motorcycleFacade.removeMotorcycle(motorcycleId);
+        return ResponseEntity.noContent().build();
     }
 }

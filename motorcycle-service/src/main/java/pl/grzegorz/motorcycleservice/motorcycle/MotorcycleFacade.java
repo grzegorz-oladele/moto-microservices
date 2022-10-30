@@ -8,8 +8,8 @@ import java.util.List;
 public interface MotorcycleFacade {
 
     MotorcycleOutputDto getMotorcycleById(long motorcycleId);
-    List<MotorcycleOutputDto> getListOfMotorcycles();
-    void AddMotorcycle(MotorcycleDto motorcycleDto, long bikeClassId);
+    List<MotorcycleOutputDto> getListOfMotorcycles(int page, int size);
+    void addMotorcycle(MotorcycleDto motorcycleDto, long bikeClassId);
     void editMotorcycle(long motorcycleId, MotorcycleDto motorcycleDto);
     void removeMotorcycle(long motorcycleId);
 }

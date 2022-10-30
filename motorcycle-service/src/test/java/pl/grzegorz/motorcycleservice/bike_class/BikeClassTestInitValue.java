@@ -4,15 +4,16 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import pl.grzegorz.motorcycleservice.bike_class.dto.input.BikeClassDto;
 import pl.grzegorz.motorcycleservice.bike_class.dto.output.BikeClassOutputDto;
+import pl.grzegorz.motorcycleservice.bike_class.query.BikeClassSimpleEntity;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class MotorcycleClassTestInitValue {
+public class BikeClassTestInitValue {
 
-    static List<BikeClassOutputDto> getUnitTestingListOfMotorcycleClassOutputDto() {
+    static List<BikeClassOutputDto> getUnitTestingListOfBikeClassOutputDto() {
         BikeClassOutputDto firstBikeClassOutputDto = new BikeClassOutputDto() {
             @Override
             public Long getId() {
@@ -63,10 +64,17 @@ class MotorcycleClassTestInitValue {
                 .build();
     }
 
-    static BikeClassDto getUnitTestingMotorcycleClassDto() {
+    public static BikeClassDto getUnitTestingMotorcycleClassDto() {
         return BikeClassDto.builder()
                 .name("Cafe Racer")
                 .description("Small-capacity motorcycles for getting around town fast")
+                .build();
+    }
+
+    public static BikeClassSimpleEntity getUnitTestBikeClassSimpleEntity() {
+        return BikeClassSimpleEntity.builder()
+                .id(1L)
+                .name("Supersport")
                 .build();
     }
 }

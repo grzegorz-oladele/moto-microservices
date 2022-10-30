@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BikeClassFacade {
 
-    List<BikeClassOutputDto> getMotorcycleClassList();
+    List<BikeClassOutputDto> getMotorcycleClassList(int page, int size);
     BikeClassOutputDto getMotorcycleClassById(long motorcycleClassId);
     BikeClassSimpleEntity getBikeClassSimpleEntity(long bikeClassId);
     void addMotorcyclesClass(BikeClassDto bikeClassDto);

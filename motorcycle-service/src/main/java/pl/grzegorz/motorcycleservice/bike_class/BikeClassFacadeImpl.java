@@ -2,14 +2,16 @@ package pl.grzegorz.motorcycleservice.bike_class;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.grzegorz.motorcycleservice.bike_class.dto.input.BikeClassDto;
 import pl.grzegorz.motorcycleservice.bike_class.dto.output.BikeClassOutputDto;
 import pl.grzegorz.motorcycleservice.bike_class.query.BikeClassSimpleEntity;
+import pl.grzegorz.motorcycleservice.tools.validator.ValidatorFacade;
 
 import java.util.List;
 
-import static pl.grzegorz.motorcycleservice.bike_class.BikeClassEntity.*;
+import static pl.grzegorz.motorcycleservice.bike_class.BikeClassEntity.toEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -19,10 +21,12 @@ class BikeClassFacadeImpl implements BikeClassFacade {
     private static final String MOTORCYCLE_CLASS_NOT_FOUND_MESSAGE = "Motorcycle class not found";
     private final BikeClassRepository bikeClassRepository;
     private final BikeClassQueryRepository bikeClassQueryRepository;
+    private final ValidatorFacade validatorFacade;
 
     @Override
-    public List<BikeClassOutputDto> getMotorcycleClassList() {
-        return bikeClassQueryRepository.findAllBy();
+    public List<BikeClassOutputDto> getMotorcycleClassList(int page, int size) {
+        validatorFacade.checkPageAndSizeValueAndThrowExceptionIfIsWrong(page, size);
+        return bikeClassQueryRepository.findAllBy(PageRequest.of(page - 1, size));
     }
 
     @Override

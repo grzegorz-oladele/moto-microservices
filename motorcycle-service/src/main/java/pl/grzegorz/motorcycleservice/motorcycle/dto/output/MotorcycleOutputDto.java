@@ -1,7 +1,6 @@
 package pl.grzegorz.motorcycleservice.motorcycle.dto.output;
 
 import pl.grzegorz.motorcycleservice.bike_class.dto.output.BasicBikeClassOutputDto;
-import pl.grzegorz.motorcycleservice.bike_class.dto.output.BikeClassOutputDto;
 
 public interface MotorcycleOutputDto {
 
@@ -17,7 +16,7 @@ public interface MotorcycleOutputDto {
 
     Integer getVintage();
 
-    BikeClassOutputDto getMotorcycleClass();
+    BasicBikeClassOutputDto getMotorcycleClass();
 
     String getBikerId();
 }

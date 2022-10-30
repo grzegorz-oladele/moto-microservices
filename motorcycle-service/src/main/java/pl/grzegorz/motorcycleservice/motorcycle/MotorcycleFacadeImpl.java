@@ -2,15 +2,17 @@ package pl.grzegorz.motorcycleservice.motorcycle;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.grzegorz.motorcycleservice.bike_class.BikeClassFacade;
 import pl.grzegorz.motorcycleservice.bike_class.query.BikeClassSimpleEntity;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.output.MotorcycleOutputDto;
+import pl.grzegorz.motorcycleservice.tools.validator.ValidatorFacade;
 
 import java.util.List;
 
-import static pl.grzegorz.motorcycleservice.motorcycle.MotorcycleEntity.*;
+import static pl.grzegorz.motorcycleservice.motorcycle.MotorcycleEntity.toEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -20,10 +22,11 @@ class MotorcycleFacadeImpl implements MotorcycleFacade {
     private final MotorcycleRepository motorcycleRepository;
     private final MotorcycleQueryRepository motorcycleQueryRepository;
     private final BikeClassFacade bikeClassFacade;
+    private final ValidatorFacade validatorFacade;
 
     @Override
     public MotorcycleOutputDto getMotorcycleById(long motorcycleId) {
-        return motorcycleQueryRepository.findById(motorcycleId)
+        return motorcycleQueryRepository.findAllById(motorcycleId)
                 .orElseThrow(() -> {
                     log.error("Motorcycle wit id -> {} not found", motorcycleId);
                     throw new IllegalArgumentException("Motorcycle not found");
@@ -31,12 +34,13 @@ class MotorcycleFacadeImpl implements MotorcycleFacade {
     }
 
     @Override
-    public List<MotorcycleOutputDto> getListOfMotorcycles() {
-        return motorcycleQueryRepository.getAllBy();
+    public List<MotorcycleOutputDto> getListOfMotorcycles(int page, int size) {
+        validatorFacade.checkPageAndSizeValueAndThrowExceptionIfIsWrong(page, size);
+        return motorcycleQueryRepository.findAllBy(PageRequest.of(page - 1, size));
     }
 
     @Override
-    public void AddMotorcycle(MotorcycleDto motorcycleDto, long bikeClassId) {
+    public void addMotorcycle(MotorcycleDto motorcycleDto, long bikeClassId) {
         MotorcycleEntity motorcycle = toEntity(motorcycleDto);
         BikeClassSimpleEntity bikeClass = bikeClassFacade.getBikeClassSimpleEntity(bikeClassId);
         motorcycle.setMotorcycleClass(bikeClass);

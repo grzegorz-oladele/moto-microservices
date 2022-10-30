@@ -14,5 +14,4 @@ public class MotorcycleDto {
     private int capacity;
     private int horsePower;
     private int vintage;
-//    private MotorcycleClassSimpleEntity motorcycleClass;
 }

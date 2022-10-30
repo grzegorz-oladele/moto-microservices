@@ -17,8 +17,9 @@ class BikeClassController {
     private final BikeClassFacade bikeClassFacade;
 
     @GetMapping
-    ResponseEntity<List<BikeClassOutputDto>> getMotorcycleClasses() {
-        return ResponseEntity.ok(bikeClassFacade.getMotorcycleClassList());
+    ResponseEntity<List<BikeClassOutputDto>> getMotorcycleClasses(@RequestParam(value = "page") int page,
+                                                                  @RequestParam(value = "size") int size) {
+        return ResponseEntity.ok(bikeClassFacade.getMotorcycleClassList(page, size));
     }
 
     @GetMapping("/{motorcycleClassId}")
