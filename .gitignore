@@ -11,4 +11,10 @@ motorcycle-service/motorcycle-service.iml
 motorcycle-service/target
 motorcycle-service/src/main/resources/application-dev.properties
 
+#BIKER-SERVICE
+biker-service/HELP.md
+biker-service/biker-service.iml
+biker-service/target
+biker-service/src/main/resources/application-dev.properties
+
 docker

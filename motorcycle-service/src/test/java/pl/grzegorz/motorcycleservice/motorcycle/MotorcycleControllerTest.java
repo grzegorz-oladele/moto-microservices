@@ -47,7 +47,6 @@ class MotorcycleControllerTest extends BaselineIntegrationTest {
     private static MotorcycleDto motorcycleDto;
     private static BikeClassDto bikeClassDto;
 
-
     @BeforeAll
     static void start() {
         motorcycle = getMotorcycleEntity();
@@ -69,7 +68,7 @@ class MotorcycleControllerTest extends BaselineIntegrationTest {
     @Test
     void shouldReturnSingleMotorcycle() throws Exception {
 //        given
-        MotorcycleEntity motorcycle = motorcycleRepository.save(MotorcycleControllerTest.motorcycle);
+        MotorcycleEntity motorcycle = motorcycleRepository.save(secondMotorcycle);
         long id = motorcycle.getId();
 //        when
 
@@ -91,11 +90,11 @@ class MotorcycleControllerTest extends BaselineIntegrationTest {
 
         assertAll(
                 () -> assertNotNull(testResult),
-                () -> assertEquals("Ducati", testResult.getBrand()),
-                () -> assertEquals("Panigale V4S", testResult.getModel()),
-                () -> assertEquals(221, testResult.getHorsePower()),
+                () -> assertEquals("BMW", testResult.getBrand()),
+                () -> assertEquals("S1000RR", testResult.getModel()),
+                () -> assertEquals(215, testResult.getHorsePower()),
                 () -> assertEquals(2022, testResult.getVintage()),
-                () -> assertEquals(1098, testResult.getCapacity())
+                () -> assertEquals(999, testResult.getCapacity())
         );
     }
 

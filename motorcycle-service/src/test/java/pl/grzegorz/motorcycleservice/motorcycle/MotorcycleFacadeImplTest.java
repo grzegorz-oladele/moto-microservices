@@ -127,7 +127,7 @@ class MotorcycleFacadeImplTest {
     }
 
     @Test
-    void shouldCallingSaveMethodFromMotorcycleRepositoryInterface() {
+    void shouldCallingSaveMethodFromMotorcycleRepositoryWhenWeAddNewMotorcycle() {
 //        given
         long bikeClassId = 3;
         when(bikeClassFacade.getBikeClassSimpleEntity(bikeClassId)).thenReturn(bikeClassSimpleEntity);
@@ -138,7 +138,7 @@ class MotorcycleFacadeImplTest {
     }
 
     @Test
-    void shouldCallingSaveMethodFromMotorcycleRepository() {
+    void shouldCallingSaveMethodFromMotorcycleRepositoryWeEditMotorcycle() {
 //        given
         when(motorcycleRepository.findById(motorcycleId)).thenReturn(Optional.of(motorcycle));
 //        when
@@ -148,7 +148,7 @@ class MotorcycleFacadeImplTest {
     }
 
     @Test
-    void shouldCallingDeleteMethodFromMotorcycleRepositoryInterface() {
+    void shouldCallingDeleteMethodFromMotorcycleRepositoryWhenWeDeleteMotorcycle() {
 //        given
         when(motorcycleRepository.findById(motorcycleId)).thenReturn(Optional.of(motorcycle));
 //        when
