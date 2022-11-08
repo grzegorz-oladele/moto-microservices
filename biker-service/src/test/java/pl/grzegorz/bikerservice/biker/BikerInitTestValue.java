@@ -9,9 +9,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static java.util.Arrays.asList;
-import static java.util.List.*;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
@@ -78,18 +78,18 @@ class BikerInitTestValue {
         return BikerDto.builder()
                 .firstName("Paweł")
                 .lastName("Pawłowski")
-                .dateOfBirth("1991-09-21")
+                .dateOfBirth("1989-03-12")
                 .email("paweł@pawłowski.pl")
-                .roles(of("USER"))
                 .build();
     }
 
     static BikerEntity getFirstBikerEntity() {
         return BikerEntity.builder()
-                .firstName("Paweł")
-                .lastName("Pawłowski")
+                .firstName("Piotr")
+                .lastName("Piotrowski")
                 .dateOfBirth(LocalDate.of(1991,9,21))
-                .email("paweł@pawłowski.pl")
+                .email("piotr@piotrowski.pl")
+                .isActive(TRUE)
                 .roles(Set.of(getRoleSimpleEntity()))
                 .build();
     }
@@ -100,6 +100,7 @@ class BikerInitTestValue {
                 .lastName("Adamowicz")
                 .dateOfBirth(LocalDate.of(1984,12,27))
                 .email("adam@adamowicz.pl")
+                .isActive(FALSE)
                 .roles(Set.of(getRoleSimpleEntity()))
                 .build();
     }

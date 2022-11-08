@@ -11,7 +11,6 @@ import pl.grzegorz.bikerservice.tools.validator.ValidatorFacade;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.PageRequest.of;
 import static pl.grzegorz.bikerservice.biker.BikerEntity.toBikerEntity;
@@ -44,35 +43,21 @@ class BikerFacadeImpl implements BikerFacade {
     @Override
     public void addNewBiker(BikerDto bikerDto) {
         validatorFacade.checkDateOfBirthAndThrowExceptionIfIsWrong(bikerDto);
-        BikerEntity biker = toBikerEntity(bikerDto);
-        Set<RoleSimpleEntity> roles = getSetOfRoleSimpleEntity(bikerDto.getRoles());
-        biker.setRoles(roles);
+        BikerEntity biker = createBikerEntity(bikerDto);
         bikerRepository.save(biker);
         log.info("Save new biker with first name -> {}, last name -> {} and id -> {}", biker.getFirstName(),
                 biker.getLastName(), biker.getId());
     }
 
-    private Set<RoleSimpleEntity> getSetOfRoleSimpleEntity(List<String> roles) {
-        log.info("Mapping list of role names to list of RoleSimpleEntity");
-        return roles.stream()
-                .map(roleName -> {
-                    checkRoleNameAndThrowExceptionIfNotExists(roleName);
-                    return RoleSimpleEntity.builder()
-                            .name(roleName)
-                            .build();
-                })
-                .collect(Collectors.toSet());
+    private BikerEntity createBikerEntity(BikerDto bikerDto) {
+        BikerEntity biker = toBikerEntity(bikerDto);
+        RoleSimpleEntity simpleRole = getUserRoleSimpleEntity();
+        biker.setRoles(Set.of(simpleRole));
+        return biker;
     }
 
-    private void checkRoleNameAndThrowExceptionIfNotExists(String roleName) {
-        if (!existsRoleByName(roleName)) {
-            log.error("Role with name -> {} not found", roleName);
-            throw new IllegalArgumentException("Role not found");
-        }
-    }
-
-    private boolean existsRoleByName(String name) {
-        return roleFacade.existsByName(name);
+    private RoleSimpleEntity getUserRoleSimpleEntity() {
+        return roleFacade.getUserRoleSimpleEntity();
     }
 
     @Override
@@ -80,8 +65,6 @@ class BikerFacadeImpl implements BikerFacade {
         existsBikerById(bikerId);
         validatorFacade.checkDateOfBirthAndThrowExceptionIfIsWrong(bikerDto);
         BikerEntity updatedBiker = toBikerEntity(bikerDto);
-        Set<RoleSimpleEntity> roles = getSetOfRoleSimpleEntity(bikerDto.getRoles());
-        updatedBiker.setRoles(roles);
         updatedBiker.setId(bikerId);
         bikerRepository.save(updatedBiker);
         log.info("Updated biker with id -> {}", bikerId);

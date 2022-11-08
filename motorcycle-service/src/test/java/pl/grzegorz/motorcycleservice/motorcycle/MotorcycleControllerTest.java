@@ -19,6 +19,7 @@ import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
 
 import java.util.List;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -86,7 +87,7 @@ class MotorcycleControllerTest extends BaselineIntegrationTest {
                 .getResponse()
                 .getContentAsString();
 
-        MotorcycleEntityIntegrationTest testResult = objectMapper.readValue(result, MotorcycleEntityIntegrationTest.class);
+        MotorcycleOutputDto testResult = objectMapper.readValue(result, MotorcycleOutputDto.class);
 
         assertAll(
                 () -> assertNotNull(testResult),
@@ -114,7 +115,7 @@ class MotorcycleControllerTest extends BaselineIntegrationTest {
                 .getResponse()
                 .getContentAsString();
 
-        List<MotorcycleEntityIntegrationTest> testResult = objectMapper.readValue(result, new TypeReference<>() {
+        List<MotorcycleOutputDto> testResult = objectMapper.readValue(result, new TypeReference<>() {
         });
 //        then
         assertAll(
@@ -187,16 +188,16 @@ class MotorcycleControllerTest extends BaselineIntegrationTest {
 
 //        When motorcycle not found
         mockMvc.perform(patch(URL + "/" + WRONG_ID)
-                .contentType(APPLICATION_JSON)
-                .content(requestBody))
+                        .contentType(APPLICATION_JSON)
+                        .content(requestBody))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andReturn();
 
 //        When motorcycle was found
         mockMvc.perform(patch(URL + "/" + id)
-                .contentType(APPLICATION_JSON)
-                .content(requestBody))
+                        .contentType(APPLICATION_JSON)
+                        .content(requestBody))
                 .andDo(print())
                 .andExpect(status().isNoContent())
                 .andReturn();
@@ -242,9 +243,9 @@ class MotorcycleControllerTest extends BaselineIntegrationTest {
         );
     }
 
-    @Getter
-    @Setter
-    private static class MotorcycleEntityIntegrationTest {
+    @Getter(value = PRIVATE)
+    @Setter(value = PRIVATE)
+    private static class MotorcycleOutputDto {
 
         private long id;
         private String brand;

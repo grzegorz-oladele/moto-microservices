@@ -6,9 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.grzegorz.bikerservice.biker.dto.BikerDto;
 import pl.grzegorz.bikerservice.biker.dto.BikerOutputDto;
-import pl.grzegorz.bikerservice.role.RoleFacade;
 import pl.grzegorz.bikerservice.tools.validator.ValidatorFacade;
 
 import java.time.LocalDate;
@@ -19,7 +17,6 @@ import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.data.domain.PageRequest.of;
-import static pl.grzegorz.bikerservice.biker.BikerInitTestValue.getBikerDto;
 import static pl.grzegorz.bikerservice.biker.BikerInitTestValue.getListOfBikers;
 
 
@@ -33,18 +30,14 @@ class BikerFacadeImplTest {
     @Mock
     private BikerQueryRepository bikerQueryRepository;
     @Mock
-    private RoleFacade roleFacade;
-    @Mock
     private ValidatorFacade validatorFacade;
 
     private final long bikerId = 2;
     private List<BikerOutputDto> bikers;
-    private BikerDto bikerDto;
 
     @BeforeEach
     void setup() {
         bikers = getListOfBikers();
-        bikerDto = getBikerDto();
     }
 
 
@@ -106,29 +99,6 @@ class BikerFacadeImplTest {
                 () -> assertEquals(LocalDate.of(1984, 12, 27), bikers.get(1).getDateOfBirth()),
                 () -> assertEquals(TRUE, bikers.get(1).getIsActive())
         );
-    }
-
-    @Test
-    void shouldCallingSaveMethodFromBikerRepositoryInterfaceWhenWillBeAddNewBiker() {
-//        given
-        String roleName = "USER";
-        when(roleFacade.existsByName(roleName)).thenReturn(true);
-//        when
-        bikerFacade.addNewBiker(bikerDto);
-//        then
-        verify(bikerRepository).save(any(BikerEntity.class));
-    }
-
-    @Test
-    void shouldCallingSaveMethodFromBikerRepositoryWhenWeEditBiker() {
-//        given
-        String roleName = "USER";
-        when(roleFacade.existsByName(roleName)).thenReturn(true);
-        when(bikerRepository.existsById(bikerId)).thenReturn(true);
-//        when
-        bikerFacade.editBiker(bikerId, bikerDto);
-//        then
-        verify(bikerRepository).save(any(BikerEntity.class));
     }
 
     @Test
