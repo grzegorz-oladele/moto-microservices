@@ -27,8 +27,8 @@ services:
     container_name: motorcycle-database
     image: postgres:14
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: user
+      POSTGRES_PASSWORD: motorcycle-password
+      POSTGRES_USER: motorcycle-user
       POSTGRES_DB: motorcycle_db
       POSTGRES_PORT: 5432
     restart: always
@@ -45,14 +45,20 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
       SPRING_DATASOURCE_URL: jdbc:postgresql://motorcycle-database:5432/motorcycle_db
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_USERNAME: motorcycle-password
+      SPRING_DATASOURCE_PASSWORD: motorcycle-user
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     restart: always
     depends_on:
       - motorcycle-database
     networks:
       - moto-microservices
+# BIKER DATABASE
+  biker-database:
+    container_name: biker-database
+    image: postgres:14
+
+
 
 
 volumes:

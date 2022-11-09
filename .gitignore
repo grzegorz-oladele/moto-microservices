@@ -1,3 +1,4 @@
+#EUREKA SERVICE
 eureka-service/target
 eureka-service/.idea
 
@@ -16,5 +17,11 @@ biker-service/HELP.md
 biker-service/biker-service.iml
 biker-service/target
 biker-service/src/main/resources/application-dev.properties
+
+#CIRCUIT SERVICE
+circuit-service/target
+circuit-service/circuit-service.iml
+circuit-service/HELP.md
+circuit-service/src/main/resources/application-dev.properties
 
 docker
