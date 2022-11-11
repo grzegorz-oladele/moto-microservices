@@ -8,7 +8,7 @@ public interface TrackOutputDto {
 
     String getName();
 
-    Double getCircuitLength();
+    Double getTrackLength();
 
     Boolean getIsThereFence();
 

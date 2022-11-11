@@ -51,36 +51,35 @@ class CircuitFacadeImpl implements CircuitFacade {
 
     @Override
     public void addNewCircuit(CircuitDto circuitDto) {
-        CircuitEntity motorcycleTrack = toMotorcycleTrackEntity(circuitDto);
-        circuitRepository.save(motorcycleTrack);
-        log.info("Save new circuit with name -> {} in city -> {}", motorcycleTrack.getName(),
-                motorcycleTrack.getCity());
+        CircuitEntity circuit = toCircuitEntity(circuitDto);
+        circuitRepository.save(circuit);
+        log.info("Save new circuit with name -> {} in city -> {}", circuit.getName(), circuit.getCity());
     }
 
     @Override
     public void editCircuit(long circuitId, CircuitDto circuitDto) {
-        checkMotorcycleTrackAndThrowExceptionIfNotExist(circuitId);
-        CircuitEntity updatedMotorcycleTrack = toMotorcycleTrackEntity(circuitDto);
-        updatedMotorcycleTrack.setId(circuitId);
-        circuitRepository.save(updatedMotorcycleTrack);
+        checkCircuitAndThrowExceptionIfNotExist(circuitId);
+        CircuitEntity updatedCircuit = toCircuitEntity(circuitDto);
+        updatedCircuit.setId(circuitId);
+        circuitRepository.save(updatedCircuit);
         log.info("Update circuit with id -> {}", circuitId);
     }
 
     @Override
     public void removeCircuit(long circuitId) {
-        checkMotorcycleTrackAndThrowExceptionIfNotExist(circuitId);
+        checkCircuitAndThrowExceptionIfNotExist(circuitId);
         circuitRepository.deleteById(circuitId);
         log.info("Remove circuit with id -> {}", circuitId);
     }
 
-    private void checkMotorcycleTrackAndThrowExceptionIfNotExist(long motorcycleTrackId) {
-        if (!existMotorcycleTrackById(motorcycleTrackId)) {
-            log.error("Circuit with id -> {} not found", motorcycleTrackId);
+    private void checkCircuitAndThrowExceptionIfNotExist(long circuitId) {
+        if (!existCircuitById(circuitId)) {
+            log.error("Circuit with id -> {} not found", circuitId);
             throw new IllegalArgumentException("Circuit not found");
         }
     }
 
-    private boolean existMotorcycleTrackById(long motorcycleTrackId) {
-        return circuitRepository.existsById(motorcycleTrackId);
+    private boolean existCircuitById(long circuitId) {
+        return circuitRepository.existsById(circuitId);
     }
 }

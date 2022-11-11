@@ -7,6 +7,7 @@ import pl.grzegorz.circuitservice.circuit.CircuitFacade;
 import pl.grzegorz.circuitservice.circuit.query.CircuitSimpleEntity;
 import pl.grzegorz.circuitservice.track.dto.input.TrackDto;
 import pl.grzegorz.circuitservice.track.dto.output.TrackOutputDto;
+import pl.grzegorz.circuitservice.track.dto.output.TrackSimpleOutputDto;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ class TrackFacadeImpl implements TrackFacade {
     }
 
     @Override
-    public List<TrackOutputDto> getAllTracksByCircuit(long circuitId, int page, int size) {
+    public List<TrackSimpleOutputDto> getAllTracksByCircuit(long circuitId, int page, int size) {
         return trackQueryRepository.findAllByCircuit_Id(circuitId, of(page - 1, size));
     }
 
@@ -53,11 +54,20 @@ class TrackFacadeImpl implements TrackFacade {
 
     @Override
     public void editTrack(long trackId, TrackDto trackDto) {
-        checkTrackAndThrowExceptionIfNotExist(trackId);
-        TrackEntity track = toTrackEntity(trackDto);
-        track.setId(trackId);
-        trackRepository.save(track);
+        TrackEntity track = getTrackEntityById(trackId);
+        TrackEntity updatedTrack = toTrackEntity(trackDto);
+        updatedTrack.setId(track.getId());
+        updatedTrack.setCircuit(track.getCircuit());
+        trackRepository.save(updatedTrack);
         log.info("Edit track with id -> {}", trackId);
+    }
+
+    private TrackEntity getTrackEntityById(long trackId) {
+        return trackRepository.findById(trackId)
+                .orElseThrow(() -> {
+                    log.error("Track with id {} -> not found", trackId);
+                    throw new IllegalArgumentException("Track not found");
+                });
     }
 
     @Override

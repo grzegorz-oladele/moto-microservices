@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.grzegorz.circuitservice.track.dto.input.TrackDto;
 import pl.grzegorz.circuitservice.track.dto.output.TrackOutputDto;
+import pl.grzegorz.circuitservice.track.dto.output.TrackSimpleOutputDto;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -30,13 +31,13 @@ class TrackController {
     }
 
     @GetMapping("/{circuitId}/circuits")
-    ResponseEntity<List<TrackOutputDto>> getAllTracksByCircuit(@PathVariable long circuitId, @RequestParam int page,
-                                                               @RequestParam int size) {
+    ResponseEntity<List<TrackSimpleOutputDto>> getAllTracksByCircuit(@PathVariable long circuitId, @RequestParam int page,
+                                                                     @RequestParam int size) {
         return ok(trackFacade.getAllTracksByCircuit(circuitId, page, size));
     }
 
     @PostMapping("/{circuitId}/circuits")
-    ResponseEntity<?> addNewTrack(@PathVariable long circuitId, @RequestParam @Valid TrackDto trackDto) {
+    ResponseEntity<?> addNewTrack(@PathVariable long circuitId, @RequestBody @Valid TrackDto trackDto) {
         trackFacade.addTrack(circuitId, trackDto);
         return created(URI.create("foo")).build();
     }

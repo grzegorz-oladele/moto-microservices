@@ -17,6 +17,10 @@ public class ApiGatewayConfiguration {
                         .uri("lb://motorcycle-service"))
                 .route(p -> p.path("/api/bikers/**")
                         .uri("lb://biker-service"))
+                .route(p -> p.path("/api/circuits/**")
+                        .uri("lb://circuit-service"))
+                .route(p -> p.path("/api/tracks/**")
+                        .uri("lb://circuit-service"))
                 .build();
     }
 }

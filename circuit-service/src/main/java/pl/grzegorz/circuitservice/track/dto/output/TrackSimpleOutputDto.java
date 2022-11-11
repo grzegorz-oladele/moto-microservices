@@ -6,5 +6,5 @@ public interface TrackSimpleOutputDto {
 
     String getName();
 
-    Double getCircuitLength();
+    Double getTrackLength();
 }

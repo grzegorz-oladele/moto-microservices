@@ -43,7 +43,7 @@ class CircuitEntity {
     @OneToMany(mappedBy = "circuit")
     private List<TrackSimpleEntity> listOfTracks;
 
-    static CircuitEntity toMotorcycleTrackEntity(CircuitDto circuitDto) {
+    static CircuitEntity toCircuitEntity(CircuitDto circuitDto) {
         return CircuitEntity.builder()
                 .name(circuitDto.getName())
                 .description(circuitDto.getDescription())

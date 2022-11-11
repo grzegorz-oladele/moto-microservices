@@ -32,7 +32,7 @@ class TrackEntity {
     )
     private Long id;
     private String name;
-    private Double circuitLength;
+    private Double trackLength;
     private Boolean isThereFence;
     private Boolean isTherePlaceForAd;
     @ManyToOne
@@ -41,7 +41,7 @@ class TrackEntity {
     static TrackEntity toTrackEntity(TrackDto trackDto) {
         return TrackEntity.builder()
                 .name(trackDto.getName())
-                .circuitLength(trackDto.getCircuitLength())
+                .trackLength(trackDto.getTrackLength())
                 .isThereFence(trackDto.isThereFence())
                 .isTherePlaceForAd(trackDto.isTherePlaceForAd())
                 .build();

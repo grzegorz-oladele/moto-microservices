@@ -12,7 +12,7 @@ import static lombok.AccessLevel.PRIVATE;
 public class TrackDto {
 
     private String name;
-    private double circuitLength;
+    private double trackLength;
     private boolean isThereFence;
     private boolean isTherePlaceForAd;
 }

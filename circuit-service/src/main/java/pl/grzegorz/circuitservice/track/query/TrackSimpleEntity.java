@@ -30,7 +30,7 @@ public class TrackSimpleEntity {
     )
     private Long id;
     private String name;
-    private Double circuitLength;
+    private Double trackLength;
     @ManyToOne
     private CircuitSimpleEntity circuit;
 }

@@ -4,6 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.grzegorz.circuitservice.track.dto.output.TrackOutputDto;
+import pl.grzegorz.circuitservice.track.dto.output.TrackSimpleOutputDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,5 +16,5 @@ interface TrackQueryRepository extends JpaRepository<TrackEntity, Long> {
 
     List<TrackOutputDto> findAllBy(Pageable pageable);
 
-    List<TrackOutputDto> findAllByCircuit_Id(long circuitId, Pageable pageable);
+    List<TrackSimpleOutputDto> findAllByCircuit_Id(long circuitId, Pageable pageable);
 }
