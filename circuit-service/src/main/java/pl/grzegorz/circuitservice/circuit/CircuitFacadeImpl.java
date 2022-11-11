@@ -41,14 +41,6 @@ class CircuitFacadeImpl implements CircuitFacade {
                 .build();
     }
 
-    private CircuitEntity getCircuitEntityById(long circuitId) {
-        return circuitRepository.findById(circuitId)
-                .orElseThrow(() -> {
-                    log.error("Circuit with id -> {} not found", circuitId);
-                    throw new IllegalArgumentException("Circuit not found");
-                });
-    }
-
     @Override
     public void addNewCircuit(CircuitDto circuitDto) {
         CircuitEntity circuit = toCircuitEntity(circuitDto);
@@ -58,11 +50,20 @@ class CircuitFacadeImpl implements CircuitFacade {
 
     @Override
     public void editCircuit(long circuitId, CircuitDto circuitDto) {
-        checkCircuitAndThrowExceptionIfNotExist(circuitId);
+        CircuitEntity circuit = getCircuitEntityById(circuitId);
         CircuitEntity updatedCircuit = toCircuitEntity(circuitDto);
         updatedCircuit.setId(circuitId);
+        updatedCircuit.setListOfTracks(circuit.getListOfTracks());
         circuitRepository.save(updatedCircuit);
         log.info("Update circuit with id -> {}", circuitId);
+    }
+
+    private CircuitEntity getCircuitEntityById(long circuitId) {
+        return circuitRepository.findById(circuitId)
+                .orElseThrow(() -> {
+                    log.error("Circuit with id -> {} not found", circuitId);
+                    throw new IllegalArgumentException("Circuit not found");
+                });
     }
 
     @Override
