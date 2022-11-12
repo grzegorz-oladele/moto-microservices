@@ -1,10 +1,8 @@
 package pl.grzegorz.circuitservice;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class CircuitEntityServiceApplicationTests {
+class CircuitEntityServiceApplicationTests extends BaselineIntegrationTest{
 
 	@Test
 	void contextLoads() {

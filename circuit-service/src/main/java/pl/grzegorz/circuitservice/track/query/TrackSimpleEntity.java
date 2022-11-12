@@ -6,6 +6,7 @@ import pl.grzegorz.circuitservice.circuit.query.CircuitSimpleEntity;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -23,7 +24,7 @@ public class TrackSimpleEntity {
             name = "sequence_generator",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "motorcycle_class_sequence"),
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "track_sequence"),
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
                     @org.hibernate.annotations.Parameter(name = "increment_value", value = "1")
             }

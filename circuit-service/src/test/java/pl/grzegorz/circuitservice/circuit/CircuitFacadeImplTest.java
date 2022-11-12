@@ -108,7 +108,7 @@ class CircuitFacadeImplTest {
         assertAll(
                 () -> assertNotNull(circuitSimpleEntityById),
                 () -> assertEquals(1L, circuitSimpleEntityById.getId()),
-                () -> assertEquals("Tor Poznań", circuitSimpleEntityById.getName()),
+                () -> assertEquals("Tor Poznan", circuitSimpleEntityById.getName()),
                 () -> assertEquals(0, circuitSimpleEntityById.getListOfCircuits().size())
         );
     }

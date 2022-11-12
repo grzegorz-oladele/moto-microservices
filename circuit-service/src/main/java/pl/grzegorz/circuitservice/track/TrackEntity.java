@@ -7,6 +7,7 @@ import pl.grzegorz.circuitservice.track.dto.input.TrackDto;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -25,7 +26,7 @@ class TrackEntity {
             name = "sequence_generator",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "motorcycle_class_sequence"),
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "track_sequence"),
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
                     @org.hibernate.annotations.Parameter(name = "increment_value", value = "1")
             }

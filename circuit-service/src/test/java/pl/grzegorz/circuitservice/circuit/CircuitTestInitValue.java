@@ -10,9 +10,9 @@ import pl.grzegorz.circuitservice.track.query.TrackSimpleEntity;
 
 import java.util.List;
 
+import static com.google.common.collect.ImmutableList.of;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
-import static java.util.List.of;
 import static lombok.AccessLevel.PRIVATE;
 import static pl.grzegorz.circuitservice.track.TrackTestInitValue.getTrackSimpleEntity;
 
@@ -132,11 +132,11 @@ class CircuitTestInitValue {
     static CircuitEntity getCircuitEntity() {
         return CircuitEntity.builder()
                 .id(1L)
-                .name("Tor Poznań")
-                .description("Największy tor w Polsce")
-                .city("Poznań")
+                .name("Tor Poznan")
+                .description("Najwiekszy tor w Polsce")
+                .city("Poznan")
                 .postalCode("00-000")
-                .street("Poznańska")
+                .street("Poznanska")
                 .streetNumber("3")
                 .email("tor@poznan.pl")
                 .phoneNumber("123-456-789")
@@ -144,11 +144,24 @@ class CircuitTestInitValue {
                 .build();
     }
 
+    static CircuitEntity getSecondCircuitEntity() {
+        return CircuitEntity.builder()
+                .name("Tor Jastrzab")
+                .description("Tor w okolicy Radomia")
+                .city("Jastrzab")
+                .postalCode("26-502")
+                .street("Czerwienica")
+                .streetNumber("25")
+                .email("tor@jastrzab.pl")
+                .phoneNumber("987-654-321")
+                .build();
+    }
+
     public static CircuitSimpleEntity getCircuitSimpleEntity() {
         return CircuitSimpleEntity.builder()
                 .id(1L)
                 .name("Tor Poznań")
-                .listOfCircuits(of(trackSimpleEntity))
+//                .listOfCircuits(of(trackSimpleEntity))
                 .build();
     }
 
@@ -162,6 +175,20 @@ class CircuitTestInitValue {
                 .streetNumber("3")
                 .email("tor@poznan.pl")
                 .phoneNumber("123-456-789")
+                .type("SPEED")
+                .build();
+    }
+
+    static CircuitDto getSecondCircuitDto() {
+        return CircuitDto.builder()
+                .name("Silesia Ring")
+                .description("Tor na slasku")
+                .city("Kamien Slaski")
+                .postalCode("47-325")
+                .street("Lotnicza")
+                .streetNumber("5-7")
+                .email("silesia@ring.pl")
+                .phoneNumber("691-017-555")
                 .type("SPEED")
                 .build();
     }
