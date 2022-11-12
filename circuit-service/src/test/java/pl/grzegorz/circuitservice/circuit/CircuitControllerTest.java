@@ -134,6 +134,7 @@ class CircuitControllerTest extends BaselineIntegrationTest {
     @Test
     void shouldAddNewCircuitToTheDatabase() throws Exception {
 //        given
+        circuitRepository.deleteAll();
         String requestBody = objectMapper.writeValueAsString(circuitDto);
 //        when
         mockMvc.perform(post(URL)
@@ -146,14 +147,14 @@ class CircuitControllerTest extends BaselineIntegrationTest {
 //        then
         assertAll(
                 () -> assertNotNull(allCircuits),
-                () -> assertEquals("Silesia Ring", allCircuits.get(1).getName()),
-                () -> assertEquals("Tor na slasku", allCircuits.get(1).getDescription()),
-                () -> assertEquals("Kamien Slaski", allCircuits.get(1).getCity()),
-                () -> assertEquals("47-325", allCircuits.get(1).getPostalCode()),
-                () -> assertEquals("Lotnicza", allCircuits.get(1).getStreet()),
-                () -> assertEquals("5-7", allCircuits.get(1).getStreetNumber()),
-                () -> assertEquals("silesia@ring.pl", allCircuits.get(1).getEmail()),
-                () -> assertEquals("691-017-555", allCircuits.get(1).getPhoneNumber())
+                () -> assertEquals("Silesia Ring", allCircuits.get(0).getName()),
+                () -> assertEquals("Tor na slasku", allCircuits.get(0).getDescription()),
+                () -> assertEquals("Kamien Slaski", allCircuits.get(0).getCity()),
+                () -> assertEquals("47-325", allCircuits.get(0).getPostalCode()),
+                () -> assertEquals("Lotnicza", allCircuits.get(0).getStreet()),
+                () -> assertEquals("5-7", allCircuits.get(0).getStreetNumber()),
+                () -> assertEquals("silesia@ring.pl", allCircuits.get(0).getEmail()),
+                () -> assertEquals("691-017-555", allCircuits.get(0).getPhoneNumber())
         );
     }
 

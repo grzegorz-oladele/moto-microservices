@@ -43,8 +43,8 @@ class TrackEntity {
         return TrackEntity.builder()
                 .name(trackDto.getName())
                 .trackLength(trackDto.getTrackLength())
-                .isThereFence(trackDto.isThereFence())
-                .isTherePlaceForAd(trackDto.isTherePlaceForAd())
+                .isThereFence(trackDto.getIsThereFence())
+                .isTherePlaceForAd(trackDto.getIsTherePlaceForAd())
                 .build();
     }
 }

@@ -6,7 +6,6 @@ import pl.grzegorz.circuitservice.circuit.query.CircuitSimpleEntity;
 import pl.grzegorz.circuitservice.track.dto.input.TrackDto;
 import pl.grzegorz.circuitservice.track.dto.output.TrackOutputDto;
 import pl.grzegorz.circuitservice.track.dto.output.TrackSimpleOutputDto;
-import pl.grzegorz.circuitservice.track.query.TrackSimpleEntity;
 
 import java.util.List;
 
@@ -118,11 +117,13 @@ public class TrackTestInitValue {
                 .build();
     }
 
-    public static TrackSimpleEntity getTrackSimpleEntity() {
-        return TrackSimpleEntity.builder()
-                .id(1L)
-                .name("Tr nr 1")
-                .trackLength(2937D)
+    static TrackEntity getSecondTrackEntity() {
+        return TrackEntity.builder()
+                .id(2L)
+                .name("Tor nr 2")
+                .trackLength(1827D)
+                .isThereFence(TRUE)
+                .isTherePlaceForAd(FALSE)
                 .circuit(circuitSimpleEntity)
                 .build();
     }

@@ -6,21 +6,15 @@ import pl.grzegorz.circuitservice.circuit.dto.output.CircuitOutputDto;
 import pl.grzegorz.circuitservice.circuit.dto.output.CircuitSimpleOutputDto;
 import pl.grzegorz.circuitservice.circuit.query.CircuitSimpleEntity;
 import pl.grzegorz.circuitservice.track.dto.output.TrackSimpleOutputDto;
-import pl.grzegorz.circuitservice.track.query.TrackSimpleEntity;
 
 import java.util.List;
 
-import static com.google.common.collect.ImmutableList.of;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static lombok.AccessLevel.PRIVATE;
-import static pl.grzegorz.circuitservice.track.TrackTestInitValue.getTrackSimpleEntity;
 
 @NoArgsConstructor(access = PRIVATE)
-public
-class CircuitTestInitValue {
-
-    private static final TrackSimpleEntity trackSimpleEntity = getTrackSimpleEntity();
+public class CircuitTestInitValue {
 
     static List<CircuitOutputDto> getListOfCircuitOutputDto() {
         CircuitOutputDto firstCircuit = new CircuitOutputDto() {
@@ -165,7 +159,7 @@ class CircuitTestInitValue {
                 .build();
     }
 
-    static CircuitDto getCircuitDto() {
+    public static CircuitDto getCircuitDto() {
         return CircuitDto.builder()
                 .name("Tor Poznań")
                 .description("Największy tor w Polsce")

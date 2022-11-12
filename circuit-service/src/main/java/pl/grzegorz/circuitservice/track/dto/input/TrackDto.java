@@ -13,6 +13,6 @@ public class TrackDto {
 
     private String name;
     private double trackLength;
-    private boolean isThereFence;
-    private boolean isTherePlaceForAd;
+    private Boolean isThereFence;
+    private Boolean isTherePlaceForAd;
 }
