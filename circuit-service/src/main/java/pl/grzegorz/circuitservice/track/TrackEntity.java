@@ -7,7 +7,6 @@ import pl.grzegorz.circuitservice.track.dto.input.TrackDto;
 
 import javax.persistence.*;
 
-import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 

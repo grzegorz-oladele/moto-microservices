@@ -24,4 +24,10 @@ circuit-service/circuit-service.iml
 circuit-service/HELP.md
 circuit-service/src/main/resources/application-dev.properties
 
+#LAP-SERVICE
+lap-service/src/main/resources/application-dev.properties
+lap-service/target
+lap-service/HELP.md
+lap-service/lap-service.iml
+
 docker
