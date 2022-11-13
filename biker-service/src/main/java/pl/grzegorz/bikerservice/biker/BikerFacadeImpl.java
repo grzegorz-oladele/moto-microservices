@@ -51,8 +51,8 @@ class BikerFacadeImpl implements BikerFacade {
 
     private BikerEntity createBikerEntity(BikerDto bikerDto) {
         BikerEntity biker = toBikerEntity(bikerDto);
-        RoleSimpleEntity simpleRole = getUserRoleSimpleEntity();
-        biker.setRoles(Set.of(simpleRole));
+//        RoleSimpleEntity simpleRole = getUserRoleSimpleEntity();
+//        biker.setRoles(Set.of(simpleRole));
         return biker;
     }
 

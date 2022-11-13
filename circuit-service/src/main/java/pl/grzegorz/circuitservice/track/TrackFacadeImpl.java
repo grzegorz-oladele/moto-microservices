@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.grzegorz.circuitservice.circuit.CircuitFacade;
 import pl.grzegorz.circuitservice.circuit.query.CircuitSimpleEntity;
+import pl.grzegorz.circuitservice.track.dto.feign.LapFeignOutputDto;
 import pl.grzegorz.circuitservice.track.dto.input.TrackDto;
 import pl.grzegorz.circuitservice.track.dto.output.TrackOutputDto;
 import pl.grzegorz.circuitservice.track.dto.output.TrackSimpleOutputDto;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static org.springframework.data.domain.PageRequest.of;
 import static pl.grzegorz.circuitservice.track.TrackEntity.*;
+import static pl.grzegorz.circuitservice.track.TrackMapper.*;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +42,20 @@ class TrackFacadeImpl implements TrackFacade {
     @Override
     public List<TrackSimpleOutputDto> getAllTracksByCircuit(long circuitId, int page, int size) {
         return trackQueryRepository.findAllByCircuit_Id(circuitId, of(page - 1, size));
+    }
+
+    @Override
+    public LapFeignOutputDto getTrackDetailsToAddNewLap(long trackId, long circuitId) {
+        TrackEntity track = getTrackEntityByCircuit(trackId, circuitId);
+        return toLapFeignOutputDto(track);
+    }
+
+    private TrackEntity getTrackEntityByCircuit(long trackId, long circuitId) {
+        return trackRepository.findByIdAndCircuit_Id(trackId, circuitId)
+                .orElseThrow(() -> {
+                    log.error("Track with id -> {} in circuit with id -> {} not found", trackId, circuitId);
+                    throw new IllegalArgumentException("Track not found");
+                });
     }
 
     @Override

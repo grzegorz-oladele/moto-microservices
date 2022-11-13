@@ -29,5 +29,8 @@ lap-service/src/main/resources/application-dev.properties
 lap-service/target
 lap-service/HELP.md
 lap-service/lap-service.iml
+lap-service/src/main/java/pl/grzegorz/lapservice/lap/DelController.java
+lap-service/src/main/java/pl/grzegorz/lapservice/lap/LapMapper.java
+lap-service/src/main/java/pl/grzegorz/lapservice/lap/LapDocumentOutput.java
 
 docker

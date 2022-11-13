@@ -3,6 +3,7 @@ package pl.grzegorz.circuitservice.track;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.grzegorz.circuitservice.track.dto.feign.LapFeignOutputDto;
 import pl.grzegorz.circuitservice.track.dto.input.TrackDto;
 import pl.grzegorz.circuitservice.track.dto.output.TrackOutputDto;
 import pl.grzegorz.circuitservice.track.dto.output.TrackSimpleOutputDto;
@@ -34,6 +35,11 @@ class TrackController {
     ResponseEntity<List<TrackSimpleOutputDto>> getAllTracksByCircuit(@PathVariable long circuitId, @RequestParam int page,
                                                                      @RequestParam int size) {
         return ok(trackFacade.getAllTracksByCircuit(circuitId, page, size));
+    }
+
+    @GetMapping("/{trackId}/circuits/{circuitId}")
+    ResponseEntity<LapFeignOutputDto> getTrackDetailsToAddNewLap(@PathVariable long trackId, @PathVariable long circuitId) {
+        return ok(trackFacade.getTrackDetailsToAddNewLap(trackId, circuitId));
     }
 
     @PostMapping("/{circuitId}/circuits")

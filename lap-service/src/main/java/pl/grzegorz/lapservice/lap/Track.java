@@ -10,7 +10,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Builder
 class Track {
 
-    private Long trackId;
+    private Long id;
     private String name;
     private Double trackLength;
 }

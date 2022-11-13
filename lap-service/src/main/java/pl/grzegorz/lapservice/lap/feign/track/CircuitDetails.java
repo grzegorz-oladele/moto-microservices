@@ -1,21 +1,18 @@
-package pl.grzegorz.lapservice.lap.dto.mapper;
+package pl.grzegorz.lapservice.lap.feign.track;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PROTECTED;
 
 @Getter
-@Setter
 @AllArgsConstructor(access = PRIVATE)
 @Builder
-public class LapByCircuitOutputDto {
+public class CircuitDetails {
 
     private Long circuitId;
     private String circuitName;
-    private List<LapDetailsOutputDto> lapDetails;
+    TrackDetails track;
 }

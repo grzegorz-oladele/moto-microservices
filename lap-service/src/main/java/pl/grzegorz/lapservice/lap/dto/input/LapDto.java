@@ -1,4 +1,4 @@
-package pl.grzegorz.lapservice.lap.dto;
+package pl.grzegorz.lapservice.lap.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,5 +12,5 @@ import java.time.LocalDate;
 public class LapDto {
 
     private String lapTime;
-    private LocalDate lapDate;
+    private String lapDate;
 }
