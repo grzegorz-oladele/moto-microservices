@@ -4,14 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import pl.grzegorz.motorcycleservice.bike_class.BikeClassFacade;
-import pl.grzegorz.motorcycleservice.bike_class.query.BikeClassSimpleEntity;
+import pl.grzegorz.motorcycleservice.biker_feign.BikerFeignFacade;
+import pl.grzegorz.motorcycleservice.motorcycle_class.BikeClassFacade;
+import pl.grzegorz.motorcycleservice.motorcycle_class.query.BikeClassSimpleEntity;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.output.MotorcycleOutputDto;
 import pl.grzegorz.motorcycleservice.tools.validator.ValidatorFacade;
 
 import java.util.List;
 
+import static java.lang.Boolean.FALSE;
 import static pl.grzegorz.motorcycleservice.motorcycle.MotorcycleEntity.toEntity;
 
 @Service
@@ -23,6 +25,7 @@ class MotorcycleFacadeImpl implements MotorcycleFacade {
     private final MotorcycleQueryRepository motorcycleQueryRepository;
     private final BikeClassFacade bikeClassFacade;
     private final ValidatorFacade validatorFacade;
+    private final BikerFeignFacade bikerFeignFacade;
 
     @Override
     public MotorcycleOutputDto getMotorcycleById(long motorcycleId) {
@@ -40,12 +43,25 @@ class MotorcycleFacadeImpl implements MotorcycleFacade {
     }
 
     @Override
-    public void addMotorcycle(MotorcycleDto motorcycleDto, long bikeClassId) {
+    public void addMotorcycle(long bikerId, long bikeClassId, MotorcycleDto motorcycleDto) {
         validatorFacade.checkVintageValueAndThrowExceptionIfIsWrong(motorcycleDto.getVintage());
         MotorcycleEntity motorcycle = toEntity(motorcycleDto);
         BikeClassSimpleEntity bikeClass = bikeClassFacade.getBikeClassSimpleEntity(bikeClassId);
         motorcycle.setMotorcycleClass(bikeClass);
+        checkBikerExistAndThrowExceptionIfNot(bikerId);
+        motorcycle.setBikerId(bikerId);
         motorcycleRepository.save(motorcycle);
+    }
+
+    private void checkBikerExistAndThrowExceptionIfNot(long bikerId) {
+        if (checkBikerExists(bikerId).equals(FALSE)) {
+            log.error("Biker with id -> {} not exist", bikerId);
+            throw new IllegalArgumentException("Biker not exist");
+        }
+    }
+
+    private Boolean checkBikerExists(long bikerId) {
+        return bikerFeignFacade.checkBikerExists(bikerId);
     }
 
     @Override

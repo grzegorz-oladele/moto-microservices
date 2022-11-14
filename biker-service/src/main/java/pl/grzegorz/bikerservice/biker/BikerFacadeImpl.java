@@ -12,6 +12,7 @@ import pl.grzegorz.bikerservice.tools.validator.ValidatorFacade;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.Boolean.FALSE;
 import static org.springframework.data.domain.PageRequest.of;
 import static pl.grzegorz.bikerservice.biker.BikerEntity.toBikerEntity;
 
@@ -41,6 +42,11 @@ class BikerFacadeImpl implements BikerFacade {
     }
 
     @Override
+    public Boolean existBikerById(long bikerId) {
+        return bikerRepository.existsById(bikerId);
+    }
+
+    @Override
     public void addNewBiker(BikerDto bikerDto) {
         validatorFacade.checkDateOfBirthAndThrowExceptionIfIsWrong(bikerDto);
         BikerEntity biker = createBikerEntity(bikerDto);
@@ -62,7 +68,7 @@ class BikerFacadeImpl implements BikerFacade {
 
     @Override
     public void editBiker(long bikerId, BikerDto bikerDto) {
-        existsBikerById(bikerId);
+        checkExistBiker(bikerId);
         validatorFacade.checkDateOfBirthAndThrowExceptionIfIsWrong(bikerDto);
         BikerEntity updatedBiker = toBikerEntity(bikerDto);
         updatedBiker.setId(bikerId);
@@ -72,15 +78,15 @@ class BikerFacadeImpl implements BikerFacade {
 
     @Override
     public void removeBiker(long bikerId) {
-        existsBikerById(bikerId);
+        checkExistBiker(bikerId);
         bikerRepository.deleteById(bikerId);
         log.info("Remove biker with id -> {}", bikerId);
     }
 
-    private void existsBikerById(long bikerId) {
-        if (!bikerRepository.existsById(bikerId)) {
-            log.error("Biker with id -> {} not found", bikerId);
-            throw new IllegalArgumentException("Biker not found");
+    private void checkExistBiker(long bikerId) {
+        if (existBikerById(bikerId).equals(FALSE)) {
+            log.error("Biker with id -> {} not exist in database", bikerId);
+            throw new IllegalArgumentException("Biker not exist in the database");
         }
     }
 }

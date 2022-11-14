@@ -1,6 +1,6 @@
 package pl.grzegorz.motorcycleservice.motorcycle.dto.output;
 
-import pl.grzegorz.motorcycleservice.bike_class.dto.output.BasicBikeClassOutputDto;
+import pl.grzegorz.motorcycleservice.motorcycle_class.dto.output.BasicBikeClassOutputDto;
 
 public interface MotorcycleOutputDto {
 

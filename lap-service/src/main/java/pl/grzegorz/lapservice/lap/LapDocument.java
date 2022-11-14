@@ -3,9 +3,9 @@ package pl.grzegorz.lapservice.lap;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import pl.grzegorz.lapservice.lap.feign.biker.BikerDetails;
-import pl.grzegorz.lapservice.lap.feign.motorcycle.MotorcycleDetails;
-import pl.grzegorz.lapservice.lap.feign.track.CircuitDetails;
+import pl.grzegorz.lapservice.biker.details.BikerDetails;
+import pl.grzegorz.lapservice.motorcycle.details.MotorcycleDetails;
+import pl.grzegorz.lapservice.circuit.details.CircuitDetails;
 import pl.grzegorz.lapservice.lap.dto.input.LapDto;
 
 import java.time.LocalDate;

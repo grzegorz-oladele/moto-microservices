@@ -2,7 +2,7 @@ package pl.grzegorz.motorcycleservice.motorcycle;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import pl.grzegorz.motorcycleservice.bike_class.dto.output.BasicBikeClassOutputDto;
+import pl.grzegorz.motorcycleservice.motorcycle_class.dto.output.BasicBikeClassOutputDto;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.output.MotorcycleOutputDto;
 

@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.grzegorz.motorcycleservice.BaselineIntegrationTest;
-import pl.grzegorz.motorcycleservice.bike_class.BikeClassFacade;
-import pl.grzegorz.motorcycleservice.bike_class.dto.input.BikeClassDto;
-import pl.grzegorz.motorcycleservice.bike_class.dto.output.BikeClassOutputDto;
-import pl.grzegorz.motorcycleservice.bike_class.query.BikeClassSimpleEntity;
+import pl.grzegorz.motorcycleservice.motorcycle_class.BikeClassFacade;
+import pl.grzegorz.motorcycleservice.motorcycle_class.dto.input.BikeClassDto;
+import pl.grzegorz.motorcycleservice.motorcycle_class.dto.output.BikeClassOutputDto;
+import pl.grzegorz.motorcycleservice.motorcycle_class.query.BikeClassSimpleEntity;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
 
 import java.util.List;
@@ -25,7 +25,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static pl.grzegorz.motorcycleservice.bike_class.BikeClassTestInitValue.getUnitTestingMotorcycleClassDto;
+import static pl.grzegorz.motorcycleservice.motorcycle_class.BikeClassTestInitValue.getUnitTestingMotorcycleClassDto;
 import static pl.grzegorz.motorcycleservice.motorcycle.UnitTestMotorcycleInitValue.*;
 
 class MotorcycleControllerTest extends BaselineIntegrationTest {

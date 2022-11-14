@@ -2,7 +2,7 @@ package pl.grzegorz.motorcycleservice.motorcycle;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import pl.grzegorz.motorcycleservice.bike_class.query.BikeClassSimpleEntity;
+import pl.grzegorz.motorcycleservice.motorcycle_class.query.BikeClassSimpleEntity;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
 
 import javax.persistence.*;
@@ -36,8 +36,7 @@ class MotorcycleEntity {
     @ManyToOne
     @JoinColumn(name = "class_id")
     private BikeClassSimpleEntity motorcycleClass;
-//    private BikeClassSimpleEntity motorcycleClass;
-    private String bikerId;
+    private Long bikerId;
 
     static MotorcycleEntity toEntity(MotorcycleDto motorcycleDto) {
         return MotorcycleEntity.builder()

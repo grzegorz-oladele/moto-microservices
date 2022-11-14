@@ -29,6 +29,11 @@ class BikerController {
         return ok(bikerFacade.getBikerById(bikerId));
     }
 
+    @GetMapping("/{bikerId}/exists")
+    ResponseEntity<Boolean> checkBikerExist(@PathVariable long bikerId) {
+        return ok(bikerFacade.existBikerById(bikerId));
+    }
+
     @PostMapping
     ResponseEntity<?> addNewBiker(@RequestBody @Valid BikerDto bikerDto) {
         bikerFacade.addNewBiker(bikerDto);

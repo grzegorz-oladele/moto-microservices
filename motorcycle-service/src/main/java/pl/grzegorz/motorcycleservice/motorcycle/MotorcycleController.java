@@ -27,9 +27,10 @@ class MotorcycleController {
         return ResponseEntity.ok(motorcycleFacade.getListOfMotorcycles(page, size));
     }
 
-    @PostMapping("/{bikeClassId}/bike-classes")
-    ResponseEntity<?> addMotorcycle(@RequestBody @Valid MotorcycleDto motorcycleDto, @PathVariable long bikeClassId) {
-        motorcycleFacade.addMotorcycle(motorcycleDto, bikeClassId);
+    @PostMapping("/{bikerId}/bikers/{motorcycleClassId}/bike-classes")
+    ResponseEntity<?> addMotorcycle(@PathVariable long bikerId, @PathVariable long motorcycleClassId,
+                                    @RequestBody @Valid MotorcycleDto motorcycleDto) {
+        motorcycleFacade.addMotorcycle(bikerId, motorcycleClassId, motorcycleDto);
         return ResponseEntity.created(URI.create("foo")).build();
     }
 

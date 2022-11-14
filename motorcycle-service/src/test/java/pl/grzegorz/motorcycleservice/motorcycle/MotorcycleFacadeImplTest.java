@@ -7,8 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
-import pl.grzegorz.motorcycleservice.bike_class.BikeClassFacade;
-import pl.grzegorz.motorcycleservice.bike_class.query.BikeClassSimpleEntity;
+import pl.grzegorz.motorcycleservice.biker_feign.BikerFeignFacade;
+import pl.grzegorz.motorcycleservice.motorcycle_class.BikeClassFacade;
+import pl.grzegorz.motorcycleservice.motorcycle_class.query.BikeClassSimpleEntity;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.output.MotorcycleOutputDto;
 import pl.grzegorz.motorcycleservice.tools.validator.ValidatorFacade;
@@ -16,9 +17,10 @@ import pl.grzegorz.motorcycleservice.tools.validator.ValidatorFacade;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static pl.grzegorz.motorcycleservice.bike_class.BikeClassTestInitValue.getUnitTestBikeClassSimpleEntity;
+import static pl.grzegorz.motorcycleservice.motorcycle_class.BikeClassTestInitValue.getUnitTestBikeClassSimpleEntity;
 import static pl.grzegorz.motorcycleservice.motorcycle.UnitTestMotorcycleInitValue.getMotorcycleEntity;
 import static pl.grzegorz.motorcycleservice.motorcycle.UnitTestMotorcycleInitValue.getUnitTestingListOfMotorcycleOutputDto;
 
@@ -35,6 +37,8 @@ class MotorcycleFacadeImplTest {
     private BikeClassFacade bikeClassFacade;
     @Mock
     private ValidatorFacade validatorFacade;
+    @Mock
+    private BikerFeignFacade bikerFeignFacade;
 
     private final long motorcycleId = 2;
 
@@ -131,8 +135,10 @@ class MotorcycleFacadeImplTest {
 //        given
         long bikeClassId = 3;
         when(bikeClassFacade.getBikeClassSimpleEntity(bikeClassId)).thenReturn(bikeClassSimpleEntity);
+        long bikerId = 1;
+        when(bikerFeignFacade.checkBikerExists(bikerId)).thenReturn(TRUE);
 //        when
-        motorcycleFacade.addMotorcycle(motorcycleDto, bikeClassId);
+        motorcycleFacade.addMotorcycle(bikerId, bikeClassId, motorcycleDto);
 //        then
         verify(motorcycleRepository).save(any(MotorcycleEntity.class));
     }
