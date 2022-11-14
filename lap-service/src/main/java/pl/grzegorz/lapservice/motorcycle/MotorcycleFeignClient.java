@@ -8,6 +8,6 @@ import pl.grzegorz.lapservice.motorcycle.details.MotorcycleDetails;
 @FeignClient(name = "motorcycle-service")
 interface MotorcycleFeignClient {
 
-    @GetMapping("/api/motorcycles/{motorcycleId}")
+    @GetMapping("/api/motorcycles/{motorcycleId}/laps")
     MotorcycleDetails getMotorcycleById(@PathVariable long motorcycleId);
 }

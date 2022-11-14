@@ -31,11 +31,24 @@ class LapFacadeImpl implements LapFacade {
     }
 
     private LapDocument createLap(long trackId, long bikerId, long motorcycleId, LapDto lapDto) {
+        BikerDetails bikerDetails = getBikerDetails(bikerId);
+        MotorcycleDetails motorcycleDetails = getMotorcycleById(motorcycleId);
+        checkMotorcycleBelongToBikerAndThrowExceptionIfNot(bikerDetails, motorcycleDetails);
+        CircuitDetails circuitDetails = getCircuitDetails(trackId);
         LapDocument newLap = toLapDocument(lapDto);
-        newLap.setCircuitDetails(getCircuitDetails(trackId));
-        newLap.setBikerDetails(getBikerDetails(bikerId));
-        newLap.setMotorcycleDetails(getMotorcycleById(motorcycleId));
+        newLap.setCircuitDetails(circuitDetails);
+        newLap.setBikerDetails(bikerDetails);
+        newLap.setMotorcycleDetails(motorcycleDetails);
         return newLap;
+    }
+
+    private void checkMotorcycleBelongToBikerAndThrowExceptionIfNot(BikerDetails bikerDetails,
+                                                                    MotorcycleDetails motorcycleDetails) {
+        if (!bikerDetails.getId().equals(motorcycleDetails.getBikerId())) {
+            log.error("Motorcycle with id -> {} not belong to biker with id -> {}", motorcycleDetails.getMotorcycleId(),
+                    bikerDetails.getId());
+            throw new IllegalArgumentException("Motorcycle not belong to biker");
+        }
     }
 
     private CircuitDetails getCircuitDetails(long trackId) {

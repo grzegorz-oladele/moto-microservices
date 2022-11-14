@@ -9,7 +9,7 @@ import static lombok.AccessLevel.*;
 @Builder
 public class BikerDetails {
 
-    private Long Id;
+    private Long id;
     private String firstName;
     private String lastName;
 }

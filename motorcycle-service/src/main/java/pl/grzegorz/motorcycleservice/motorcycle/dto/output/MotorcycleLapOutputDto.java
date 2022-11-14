@@ -1,13 +1,15 @@
-package pl.grzegorz.lapservice.motorcycle.details;
+package pl.grzegorz.motorcycleservice.motorcycle.dto.output;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
 
 @Getter
 @AllArgsConstructor(access = PRIVATE)
 @Builder
-public class MotorcycleDetails {
+public class MotorcycleLapOutputDto {
 
     private Long motorcycleId;
     private String brand;

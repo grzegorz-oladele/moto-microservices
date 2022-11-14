@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.grzegorz.motorcycleservice.biker_feign.BikerFeignFacade;
+import pl.grzegorz.motorcycleservice.motorcycle.dto.output.MotorcycleLapOutputDto;
 import pl.grzegorz.motorcycleservice.motorcycle_class.BikeClassFacade;
 import pl.grzegorz.motorcycleservice.motorcycle_class.query.BikeClassSimpleEntity;
 import pl.grzegorz.motorcycleservice.motorcycle.dto.input.MotorcycleDto;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static java.lang.Boolean.FALSE;
 import static pl.grzegorz.motorcycleservice.motorcycle.MotorcycleEntity.toEntity;
+import static pl.grzegorz.motorcycleservice.motorcycle.MotorcycleMapper.*;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +42,12 @@ class MotorcycleFacadeImpl implements MotorcycleFacade {
     public List<MotorcycleOutputDto> getListOfMotorcycles(int page, int size) {
         validatorFacade.checkPageAndSizeValueAndThrowExceptionIfIsWrong(page, size);
         return motorcycleQueryRepository.findAllBy(PageRequest.of(page - 1, size));
+    }
+
+    @Override
+    public MotorcycleLapOutputDto getMotorcycleToLap(long motorcycleId) {
+        MotorcycleEntity motorcycle = getMotorcycleEntityById(motorcycleId);
+        return toMotorcycleLapOutputDto(motorcycle);
     }
 
     @Override
