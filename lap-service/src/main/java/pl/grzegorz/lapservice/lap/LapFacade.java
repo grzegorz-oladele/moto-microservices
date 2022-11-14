@@ -12,7 +12,6 @@ public interface LapFacade {
 
     List<LapDetailsByBiker> getAllLapsByBikerAndCircuitAndDateRange(long bikerId, long circuitId, int page, int size,
                                                                     DateDto dateDto);
-
     void addNewLap(long trackId, long bikerId, long motorcycleId, LapDto lapDto);
 //
 //    List<LapOutputDto> getAllLapsByCircuitAndDateRangeAndMotorcycleCapacityRange(long circuitId, int page, int size);

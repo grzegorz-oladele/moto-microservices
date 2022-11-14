@@ -10,10 +10,10 @@ import java.util.List;
 
 @Repository
 interface LapRepository extends MongoRepository<LapDocument, String> {
+
     List<LapDocument> findAllByBikerDetails_Id(long bikerId, Pageable pageable);
 
-    @Query("{'bikerDetails.$bikerId':  ?0, 'circuitDetails.$circuitId':  ?1, 'lapDate':  {$gt:  ?2, $lt: ?3}}")
-    List<LapDocument> findAllByBikerDetails_IdAndCircuitDetails_CircuitIdAndLapDateBetween(long bikerId, long circuitId,
-                                                                                           LocalDate startDate,
-                                                                                           LocalDate endDate);
+    @Query("{'bikerDetails.id': ?0, 'circuitDetails.circuitId': ?1, 'lapDate':  {$gte: ?2, $lte: ?3}}")
+    List<LapDocument> findAllByBikerAndCircuitAndDateBetween(long bikerId, long circuitId, LocalDate startDate,
+                                                             LocalDate endDate, Pageable pageable);
 }
