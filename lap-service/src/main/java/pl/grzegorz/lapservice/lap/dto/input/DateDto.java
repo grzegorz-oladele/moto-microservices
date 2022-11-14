@@ -1,5 +1,4 @@
-package pl.grzegorz.lapservice.circuit.details;
-
+package pl.grzegorz.lapservice.lap.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +9,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @AllArgsConstructor(access = PRIVATE)
 @Builder
-public class TrackDetails {
+public class DateDto {
 
-    private Long trackId;
-    private String trackName;
-    private Double trackLength;
+    private String startLapDate;
+    private String endLapDate;
 }

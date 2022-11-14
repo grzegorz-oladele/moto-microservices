@@ -2,16 +2,25 @@ package pl.grzegorz.lapservice.lap;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.grzegorz.lapservice.biker.BikerFeignFacade;
 import pl.grzegorz.lapservice.biker.details.BikerDetails;
 import pl.grzegorz.lapservice.circuit.CircuitFeignFacade;
 import pl.grzegorz.lapservice.circuit.details.CircuitDetails;
+import pl.grzegorz.lapservice.lap.dto.input.DateDto;
 import pl.grzegorz.lapservice.lap.dto.input.LapDto;
+import pl.grzegorz.lapservice.lap.dto.output.LapDetailsByBiker;
 import pl.grzegorz.lapservice.motorcycle.MotorcycleFeignFacade;
 import pl.grzegorz.lapservice.motorcycle.details.MotorcycleDetails;
 
+import java.util.List;
+
+import static java.time.LocalDate.parse;
+import static org.springframework.data.domain.PageRequest.*;
+import static org.springframework.data.domain.PageRequest.of;
 import static pl.grzegorz.lapservice.lap.LapDocument.toLapDocument;
+import static pl.grzegorz.lapservice.lap.LapMapper.toLapDetailsByBikerList;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +31,21 @@ class LapFacadeImpl implements LapFacade {
     private final MotorcycleFeignFacade motorcycleFeignFacade;
     private final CircuitFeignFacade circuitFeignFacade;
     private final BikerFeignFacade bikerFeignFacade;
+
+    @Override
+    public List<LapDetailsByBiker> getAllLapsByBiker(long bikerId, int page, int size) {
+        List<LapDocument> lapsOfBiker = lapRepository.findAllByBikerDetails_Id(bikerId, of(page - 1, size));
+        return toLapDetailsByBikerList(lapsOfBiker);
+    }
+
+    @Override
+    public List<LapDetailsByBiker> getAllLapsByBikerAndCircuitAndDateRange(long bikerId, long circuitId, int page,
+                                                                           int size, DateDto dateDto) {
+        List<LapDocument> allLapsByBikerAndCircuitAndDateBetween =
+                lapRepository.findAllByBikerDetails_IdAndCircuitDetails_CircuitIdAndLapDateBetween(bikerId, circuitId,
+                        parse(dateDto.getStartLapDate()), parse(dateDto.getEndLapDate()));
+        return toLapDetailsByBikerList(allLapsByBikerAndCircuitAndDateBetween);
+    }
 
     @Override
     public void addNewLap(long trackId, long bikerId, long motorcycleId, LapDto lapDto) {
@@ -62,20 +86,4 @@ class LapFacadeImpl implements LapFacade {
     private MotorcycleDetails getMotorcycleById(long motorcycleId) {
         return motorcycleFeignFacade.getMotorcycleById(motorcycleId);
     }
-
-//    @Override
-//    public List<LapByCandidateOutputDto> getAllLapsByBiker(long bikerId, int page, int size) {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<LapByCandidateOutputDto> getAllLapsByBikerAndCircuitAndDateRange(long bikerId, long circuitId, int page,
-//                                                                                 int size, DateDto dateDto) {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<LapOutputDto> getAllLapsByCircuitAndDateRangeAndMotorcycleCapacityRange(long circuitId, int page, int size) {
-//        return null;
-//    }
 }
