@@ -15,7 +15,7 @@ public interface TrackFacade {
 
     List<TrackSimpleOutputDto> getAllTracksByCircuit(long circuitId, int page, int size);
 
-    LapFeignOutputDto getTrackDetailsToAddNewLap(long trackId, long circuitId);
+    LapFeignOutputDto getTrackDetailsToAddNewLap(long trackId);
 
     void addTrack(long circuitId, TrackDto trackDto);
 

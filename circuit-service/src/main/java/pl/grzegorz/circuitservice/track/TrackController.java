@@ -37,9 +37,9 @@ class TrackController {
         return ok(trackFacade.getAllTracksByCircuit(circuitId, page, size));
     }
 
-    @GetMapping("/{trackId}/circuits/{circuitId}")
-    ResponseEntity<LapFeignOutputDto> getTrackDetailsToAddNewLap(@PathVariable long trackId, @PathVariable long circuitId) {
-        return ok(trackFacade.getTrackDetailsToAddNewLap(trackId, circuitId));
+    @GetMapping("/{trackId}/laps")
+    ResponseEntity<LapFeignOutputDto> getTrackDetailsToAddNewLap(@PathVariable long trackId) {
+        return ok(trackFacade.getTrackDetailsToAddNewLap(trackId));
     }
 
     @PostMapping("/{circuitId}/circuits")

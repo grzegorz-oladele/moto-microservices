@@ -13,7 +13,7 @@ class CircuitFeignFacadeImpl implements CircuitFeignFacade {
     private final CircuitFeignClient circuitFeignClient;
 
     @Override
-    public CircuitDetails getCircuitDetails(long trackId, long circuitId) {
-        return circuitFeignClient.getCircuitDetails(trackId, circuitId);
+    public CircuitDetails getCircuitDetails(long trackId) {
+        return circuitFeignClient.getCircuitDetails(trackId);
     }
 }

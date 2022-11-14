@@ -8,6 +8,6 @@ import pl.grzegorz.lapservice.circuit.details.CircuitDetails;
 @FeignClient(name = "circuit-service")
 interface CircuitFeignClient {
 
-    @GetMapping("/api/tracks/{trackId}/circuits/{circuitId}")
-    CircuitDetails getCircuitDetails(@PathVariable long trackId, @PathVariable long circuitId);
+    @GetMapping("/api/tracks/{trackId}/laps")
+    CircuitDetails getCircuitDetails(@PathVariable long trackId);
 }

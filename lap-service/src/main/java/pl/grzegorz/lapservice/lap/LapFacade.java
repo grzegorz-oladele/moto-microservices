@@ -4,7 +4,7 @@ import pl.grzegorz.lapservice.lap.dto.input.LapDto;
 
 public interface LapFacade {
 
-    void addNewLap(long circuitId, long trackId, long bikerId, long motorcycleId, LapDto lapDto);
+    void addNewLap(long trackId, long bikerId, long motorcycleId, LapDto lapDto);
 
 //    List<LapByCandidateOutputDto> getAllLapsByBiker(long bikerId, int page, int size);
 //

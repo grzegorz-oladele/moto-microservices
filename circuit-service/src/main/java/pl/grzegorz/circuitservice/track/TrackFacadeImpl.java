@@ -45,15 +45,15 @@ class TrackFacadeImpl implements TrackFacade {
     }
 
     @Override
-    public LapFeignOutputDto getTrackDetailsToAddNewLap(long trackId, long circuitId) {
-        TrackEntity track = getTrackEntityByCircuit(trackId, circuitId);
+    public LapFeignOutputDto getTrackDetailsToAddNewLap(long trackId) {
+        TrackEntity track = getTrackEntity(trackId);
         return toLapFeignOutputDto(track);
     }
 
-    private TrackEntity getTrackEntityByCircuit(long trackId, long circuitId) {
-        return trackRepository.findByIdAndCircuit_Id(trackId, circuitId)
+    private TrackEntity getTrackEntity(long trackId) {
+        return trackRepository.findById(trackId)
                 .orElseThrow(() -> {
-                    log.error("Track with id -> {} in circuit with id -> {} not found", trackId, circuitId);
+                    log.error("Track with id -> {} not found", trackId);
                     throw new IllegalArgumentException("Track not found");
                 });
     }
