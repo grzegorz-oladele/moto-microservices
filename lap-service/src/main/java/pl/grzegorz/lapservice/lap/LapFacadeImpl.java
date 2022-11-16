@@ -2,12 +2,14 @@ package pl.grzegorz.lapservice.lap;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.grzegorz.lapservice.biker.BikerFeignFacade;
 import pl.grzegorz.lapservice.biker.details.BikerDetails;
 import pl.grzegorz.lapservice.circuit.CircuitFeignFacade;
 import pl.grzegorz.lapservice.circuit.details.CircuitDetails;
 import pl.grzegorz.lapservice.lap.dto.input.DateDto;
+import pl.grzegorz.lapservice.lap.dto.input.DateLapDto;
 import pl.grzegorz.lapservice.lap.dto.input.LapDto;
 import pl.grzegorz.lapservice.lap.dto.output.LapDetailsByBiker;
 import pl.grzegorz.lapservice.motorcycle.MotorcycleFeignFacade;
@@ -53,6 +55,19 @@ class LapFacadeImpl implements LapFacade {
         LapDocument lap = createLap(trackId, bikerId, motorcycleId, lapDto);
         log.info(lap.toString());
         lapRepository.save(lap);
+    }
+
+    @Override
+    public List<DateLapDto> getAllLapsByCircuitAndDateRangeAndMotorcycleCapacityRange(long circuitId, DateLapDto dateDto,
+                                                                                      int page, int size) {
+        LocalDate startDate = parse(dateDto.getStartDate());
+        LocalDate endDate = parse(dateDto.getEndDate());
+        int startCapacity = dateDto.getStartCapacity();
+        int endCapacity = dateDto.getEndCapacity();
+        List<LapDocument> lapsByCircuitDateAndCapacityRange =
+                lapRepository.findAllByCircuitAndDateRangeAndMotorcycleCapacity(circuitId, startDate, endDate,
+                        startCapacity, endCapacity, PageRequest.of(page, size));
+        return null;
     }
 
     private LapDocument createLap(long trackId, long bikerId, long motorcycleId, LapDto lapDto) {
