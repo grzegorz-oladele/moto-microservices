@@ -67,7 +67,7 @@ class LapFacadeImpl implements LapFacade {
         int endCapacity = dateDto.getEndCapacity();
         List<LapDocument> lapsByCircuitDateAndCapacityRange =
         lapRepository.findAllByCircuitAndDateBetweenAndMotorcycleCapacityBetween(trackId, startDate, endDate,
-                500, 2000, of(page - 1, size));
+                startCapacity, endCapacity, of(page - 1, size));
         return toLapDetailsByTrackOutputDto(lapsByCircuitDateAndCapacityRange, startDate, endDate);
     }
 

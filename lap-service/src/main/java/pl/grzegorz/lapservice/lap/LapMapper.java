@@ -39,8 +39,7 @@ class LapMapper {
     private static List<BikerOutputDto> toBikerDtoOutputList(List<LapDocument> laps) {
         return laps
                 .stream()
-                .map(LapMapper::toBikerOutputDto
-                )
+                .map(LapMapper::toBikerOutputDto)
                 .collect(Collectors.toList());
     }
 

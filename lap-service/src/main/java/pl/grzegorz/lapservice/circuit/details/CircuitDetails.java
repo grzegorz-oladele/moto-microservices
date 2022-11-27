@@ -13,5 +13,5 @@ public class CircuitDetails {
 
     private Long circuitId;
     private String circuitName;
-    TrackDetails track;
+    private TrackDetails track;
 }
