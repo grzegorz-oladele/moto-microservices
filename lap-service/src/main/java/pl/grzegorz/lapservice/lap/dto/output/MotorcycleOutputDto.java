@@ -9,5 +9,12 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @AllArgsConstructor(access = PRIVATE)
 @Builder
-class LapDetailsByTrack {
+public class MotorcycleOutputDto {
+
+    private Long motorcycleId;
+    private String brand;
+    private String model;
+    private int capacity;
+    private int horsePower;
+    private int vintage;
 }

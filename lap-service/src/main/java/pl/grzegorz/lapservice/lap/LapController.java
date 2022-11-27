@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.grzegorz.lapservice.lap.dto.input.DateDto;
+import pl.grzegorz.lapservice.lap.dto.input.DateLapDto;
 import pl.grzegorz.lapservice.lap.dto.input.LapDto;
 import pl.grzegorz.lapservice.lap.dto.output.LapDetailsByBiker;
+import pl.grzegorz.lapservice.lap.dto.output.LapDetailsByTrackOutputDto;
 
 import java.util.List;
 
@@ -32,6 +34,12 @@ class LapController {
                                                                                       @RequestParam int size,
                                                                                       @RequestBody DateDto dateDto) {
         return ok(lapFacade.getAllLapsByBikerAndCircuitAndDateRange(bikerId, circuitId, page, size, dateDto));
+    }
+
+    @GetMapping("/{trackId}/tracks")
+    ResponseEntity<LapDetailsByTrackOutputDto> getLapListByTrack(@PathVariable long trackId, @RequestBody DateLapDto dateLapDto,
+                                                                 int page, int size) {
+        return ok(lapFacade.getAllLapsByCircuitAndDateRangeAndMotorcycleCapacityRange(trackId, dateLapDto, page, size));
     }
 
     @PostMapping("/{trackId}/tracks/{bikerId}/bikers/{motorcycleId}/motorcycles")
