@@ -37,8 +37,8 @@ class LapController {
     }
 
     @GetMapping("/{trackId}/tracks")
-    ResponseEntity<LapDetailsByTrackOutputDto> getLapListByTrack(@PathVariable long trackId, @RequestBody DateLapDto dateLapDto,
-                                                                 int page, int size) {
+    ResponseEntity<LapDetailsByTrackOutputDto> getLapListByTrack(@PathVariable long trackId,
+                                                                 @RequestBody DateLapDto dateLapDto, int page, int size) {
         return ok(lapFacade.getAllLapsByCircuitAndDateRangeAndMotorcycleCapacityRange(trackId, dateLapDto, page, size));
     }
 

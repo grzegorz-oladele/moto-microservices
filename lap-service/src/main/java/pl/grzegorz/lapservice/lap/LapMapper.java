@@ -48,7 +48,7 @@ class LapMapper {
                 .bikerId(lapDocument.getBikerDetails().getId())
                 .firstName(lapDocument.getBikerDetails().getFirstName())
                 .lastName(lapDocument.getBikerDetails().getLastName())
-                .pseudonym(lapDocument.getBikerDetails().getPseudonym())
+                .username(lapDocument.getBikerDetails().getUsername())
                 .lapTime(lapDocument.getLapTime())
                 .lapDate(lapDocument.getLapDate())
                 .motorcycle(toMotorcycleOutputDto(lapDocument))

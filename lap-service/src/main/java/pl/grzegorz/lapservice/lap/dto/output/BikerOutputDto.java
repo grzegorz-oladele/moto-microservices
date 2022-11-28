@@ -16,7 +16,7 @@ public class BikerOutputDto {
     private Long bikerId;
     private String firstName;
     private String lastName;
-    private String pseudonym;
+    private String username;
     private String lapTime;
     private LocalDate lapDate;
     private MotorcycleOutputDto motorcycle;
